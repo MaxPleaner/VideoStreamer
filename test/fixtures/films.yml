@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  year: 2022-06-18 22:51:40
+  director: MyString
+
+two:
+  name: MyString
+  year: 2022-06-18 22:51:40
+  director: MyString
