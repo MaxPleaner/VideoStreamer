@@ -10,28 +10,8 @@ class FilmsController < ApplicationController
   def show
   end
 
-  # GET /films/new
-  def new
-    @film = Film.new
-  end
-
   # GET /films/1/edit
   def edit
-  end
-
-  # POST /films or /films.json
-  def create
-    @film = Film.new(film_params)
-
-    respond_to do |format|
-      if @film.save
-        format.html { redirect_to film_url(@film), notice: "Film was successfully created." }
-        format.json { render :show, status: :created, location: @film }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @film.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /films/1 or /films/1.json

@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  root "films#index"
-  resources :films
+  root "application#index"
+  resources :films, except: [:new, :create]
+  resources :unsynced_films, only: [:index, :show]
+
+  # should be a post, but too lazy to convert link to form
+  get '/unsynced_films/:id/match', to: "unsynced_films#match_unsynced_film", as: :match_unsynced_film
 end

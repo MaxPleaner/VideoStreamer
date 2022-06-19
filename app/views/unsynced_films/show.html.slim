@@ -1,0 +1,20 @@
+h2 = @folder_name
+
+form action=unsynced_film_path(@folder_name) method='GET'
+	input type='text' value=@query_name name='query_name'
+	input type='submit'
+
+div class='float: left'
+	b = "#{@results.count} search results."
+
+- @results.each.with_index do |result, idx|
+	a href=match_unsynced_film_path(@folder_name, match_idx: idx, query_name: @query_name) 
+		div.box.link-box
+			div style='display: inline-block; float: left; width: 500px;'
+				ul
+					li = "Name: #{result[:name]}"
+					li = "Date: #{result[:date]}"
+					li = "Genre ids: #{result[:genre_ids]}"
+					li = "Details: #{result[:details]}"
+			img src=result[:img_path]
+			br style='clear: both'

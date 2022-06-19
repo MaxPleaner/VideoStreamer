@@ -12,6 +12,7 @@ group :development do
   gem 'pry-byebug'
 end
 
+gem 'rest-client'
 gem 'dotenv'
 gem 'slim-rails'
 gem 'google-cloud-storage'
