@@ -1,0 +1,10 @@
+p style="color: green" = notice
+
+== render @film
+
+div
+  => link_to "Edit this film", edit_film_path(@film)
+  '|
+  =< link_to "Back to films", films_path
+
+  = button_to "Destroy this film", @film, method: :delete
