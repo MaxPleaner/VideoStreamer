@@ -12,7 +12,7 @@
 
   div
     = form.label :description, style: "display: block"
-    = form.text_field :description    
+    = form.text_area :description    
 
   div
     = form.label :director, style: "display: block"
@@ -21,6 +21,10 @@
   div
     = form.label :year, style: "display: block"
     = form.text_field :year
+
+  div
+    = form.label :image_url, style: "display: block"
+    = form.text_field :image_url    
 
   div
     = form.submit

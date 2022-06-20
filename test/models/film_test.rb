@@ -7,6 +7,7 @@
 #  year        :integer
 #  description :text
 #  director    :string
+#  image_url   :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

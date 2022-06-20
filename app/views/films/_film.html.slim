@@ -11,3 +11,8 @@ div id="#{dom_id film}"
   p
     strong Year:
     =< film.year
+  p
+    - if film.image_url
+      img src=film.image_url
+    - else
+      strong Image: none

@@ -1,13 +1,19 @@
 class FilmsController < ApplicationController
-  before_action :set_film, only: %i[ show edit update destroy ]
+  before_action :set_film, only: %i[ show edit update destroy watch]
 
   # GET /films or /films.json
   def index
     @films = Film.all
   end
 
+  def watch
+    @files = Gcs.get_files_in_folder(@film.name)
+    @stream_url = @files.find { |file| File.extname(file.name) == ".mp4" }.signed_url
+  end
+
   # GET /films/1 or /films/1.json
   def show
+    @files = Gcs.get_files_in_folder(@film.name)
   end
 
   # GET /films/1/edit

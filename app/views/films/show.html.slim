@@ -2,6 +2,22 @@ p style="color: green" = notice
 
 == render @film
 
+hz
+
+h2 FILES
+
+ul
+  - @files.each do |file|
+    li
+      a href=file.signed_url =file.name
+
+hz
+
+h1
+  a href=watch_film_path(@film) WATCH
+
+hz
+
 div
   => link_to "Edit this film", edit_film_path(@film)
   '|

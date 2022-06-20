@@ -24,6 +24,10 @@ class Gcs
 		BUCKET.upload_file(tmp_path, INDEX_FILE_NAME)
 	end
 
+	def self.get_files_in_folder(prefix)
+		BUCKET.files(prefix: prefix)
+	end
+
 	def self.download_index_file
 		JSON.parse(BUCKET.file(INDEX_FILE_NAME).download.read)
 	end

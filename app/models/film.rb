@@ -7,6 +7,7 @@
 #  year        :integer
 #  description :text
 #  director    :string
+#  image_url   :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
@@ -21,7 +22,9 @@ class Film < ApplicationRecord
 		Film.create!(
 			name: folder_name,
 			description: movie_db_results[:details],
-			year: DateTime.parse(movie_db_results[:date]).year
+			year: DateTime.parse(movie_db_results[:date]).year,
+			director: movie_db_results[:director],
+			image_url: movie_db_results[:img_path],
 		)
 	end
 end

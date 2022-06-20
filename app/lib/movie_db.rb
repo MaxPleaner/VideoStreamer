@@ -31,13 +31,23 @@ class MovieDb
 		results.map { |result| parse_details(result) }
 	end
 
+	def self.get_credits(movie_id)
+		url = "#{ROOT_URL}/movie/#{movie_id}/credits?api_key=#{API_KEY}"
+		results = JSON.parse(RestClient.get(url).body)
+		{
+			director: results["crew"].find { |entry| entry["job"] == "Director" }&.dig("name")
+		}
+	end
+
 	def self.parse_details(result)
+		credits = get_credits(result["id"])
 		{
 			img_path: build_full_img_path(result["poster_path"]),
 			date: result["release_date"],
 			genres: result["genre_ids"].map { |genre_id| GENRES[genre_id] }.compact,
 			details: result["overview"],
 			name: result["original_title"],
+			director: credits[:director],
 		}
 	end
 end
