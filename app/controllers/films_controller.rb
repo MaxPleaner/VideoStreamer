@@ -7,13 +7,14 @@ class FilmsController < ApplicationController
   end
 
   def watch
-    @files = Gcs.get_files_in_folder(@film.name)
-    @stream_url = @files.find { |file| File.extname(file.name) == ".mp4" }.signed_url
+    @files = @film.get_media_files
+    @vids = @files[:video]
+    @subs = @files[:subtitle]
   end
 
   # GET /films/1 or /films/1.json
   def show
-    @files = Gcs.get_files_in_folder(@film.name)
+    @files = @film.get_media_files
   end
 
   # GET /films/1/edit

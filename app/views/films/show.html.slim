@@ -6,15 +6,33 @@ hz
 
 h2 FILES
 
-ul
-  - @files.each do |file|
-    li
-      a href=file.signed_url =file.name
+- if %i[video unsupported_video subtitle].all? { |key| @files[key].none? }
+  h3 No Files
+- else
+  - if @files[:video].any?
+    h3 Video
+    ul
+      - @files[:video].each do |ext, files|
+        - files.each do |file|
+          a href=file.signed_url = file.name
+
+  - if @files[:unsupported_video].any?
+    h3 Video (Unsupported)
+    ul
+      - @files[:unsupported_video].each do |file|
+          a href=file.signed_url = file.name
+
+  - if @files[:subtitle].any?
+    h3 Subtitle
+    ul
+      - @files[:subtitle].each do |file|
+          a href=file.signed_url = file.name
 
 hz
 
-h1
-  a href=watch_film_path(@film) WATCH
+- if @files[:video].any?
+  h1
+    a href=watch_film_path(@film) WATCH IN BROWSER
 
 hz
 

@@ -12,6 +12,8 @@ group :development do
   gem 'pry-byebug'
 end
 
+gem 'mini_racer'
+gem 'coffee-rails'
 gem 'rest-client'
 gem 'dotenv'
 gem 'slim-rails'

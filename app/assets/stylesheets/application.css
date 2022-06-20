@@ -21,3 +21,8 @@
 .link-box:hover {
     border: 1px solid gold;
 }   
+
+#video-player {
+    width: 100vw;
+    height: 100vh;
+}  

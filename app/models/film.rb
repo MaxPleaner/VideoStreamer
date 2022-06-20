@@ -27,4 +27,37 @@ class Film < ApplicationRecord
 			image_url: movie_db_results[:img_path],
 		)
 	end
+
+	def get_files
+		Gcs.get_files_in_folder(self.name)
+	end
+
+	def get_media_files
+		video_formats = {
+			".webm" => "video/webm",
+			".mp4" => "video/mp4",
+			".mpeg" => "video/mpeg",
+			".mpg" => "video/mpeg",
+			".ogg" => "video/ogg",
+		}
+		unsupported_video_formats = %w[.avi .mkv]
+		subtitle_formats = %w[.srt .sub]
+
+		files_by_extname = get_files.group_by { |file| File.extname(file.name) }
+
+		{
+			video: video_formats.each_with_object({}) do |(ext, media_type), memo|
+				matches = files_by_extname[ext]
+				next unless matches&.any?
+				memo[media_type] ||= []
+				memo[media_type].concat(matches)
+			end,
+			unsupported_video: unsupported_video_formats.flat_map do |ext|
+				files_by_extname[ext] || []
+			end,
+			subtitle: subtitle_formats.flat_map do |ext|
+				files_by_extname[ext] || []
+			end
+		}
+	end
 end
