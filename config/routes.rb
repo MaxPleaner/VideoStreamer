@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'comments/create'
+  get 'comments/destroy'
   resources :films
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -16,4 +18,7 @@ Rails.application.routes.draw do
 
   resources :tags, only: %i[create show]
   post 'tags/:id/remove', to: 'tags#remove', as: :remove_tag
+
+  resources :comments, only: %i[create]
+  post 'comments/:id/remove', to: "comments#remove", as: :remove_comment
 end

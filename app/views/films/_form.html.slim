@@ -28,7 +28,6 @@
 
   div
     = form.submit
-
 p
   strong Tags: 
   - if @film.tags.none?
@@ -45,8 +44,6 @@ p
             input type='hidden' name='id' value=tag.id
             input type='submit' value="Remove"
 
-
-
 form action=tags_path(film: @film) method='POST'
   div
     input type='hidden' name='authenticity_token' value=form_authenticity_token
@@ -54,3 +51,28 @@ form action=tags_path(film: @film) method='POST'
     input type='text' name='name'
     br    
     input type='submit' value='Add Tag'
+
+p
+  strong Comments: 
+  - if @film.comments.none?
+    b =< "none"
+  - else
+    - @film.comments.each do |comment|
+      ul
+        li
+          div.box
+            span = "#{comment.author} (#{comment.created_at.strftime("%m/%d/%Y")}): "
+            b = comment.content
+            form action=remove_comment_path(id: comment.id) method='POST'
+                  input type='hidden' name='authenticity_token' value=form_authenticity_token
+                  input type='submit' value='Delete'
+            
+
+  form action=comments_path method='POST'
+    input type='hidden' name='authenticity_token' value=form_authenticity_token
+    input type='hidden' name='film_id' value=@film.id
+    input type='text' name='author' placeholder='Your Name'
+    br
+    textarea name='content' placeholder='New Comment'
+    br
+    input type='submit' value='Add Comment'
