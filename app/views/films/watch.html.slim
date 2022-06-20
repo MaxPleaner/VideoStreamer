@@ -1,13 +1,30 @@
-- if @selected_video
-	video#video-player type=@selected_video[:media_type] src=@selected_video[:signed_url] controls='true'
-- elsif @vids.values.flatten.count > 1
+- if !@selected_video && @vids.values.flatten.count > 1
 	h3 There are multiple video files. Please pick which one to use.
 	form action=watch_film_path(@film)
-		select name='selected_video'
-		- @vids.each do |media_type, path|
-			option value={media_type: media_type, path: path}.to_json = path
-		input type='submit' value='Use'
-- elsif @vids.values.flatten.length == 1
-	video#video-player type=@vids.keys.first src=@vids.values.flatten.first.signed_url controls='true'
+		- @vids.each do |media_type, files|
+			- files.each.with_index do |file, idx|
+				= radio_button_tag("selected_video", {media_type: media_type, name: file.name}.to_json, idx.zero?, id: file.name)
+				label for=file.name = file.name
+				br
+		br
+		input type='submit' value='Use File'
+- else
+	- if @vids.values.flatten.length == 1
+		- type = @vids.keys.first
+		- src = @vids.values.flatten.first.signed_url
+		video#video-player type=@vids.keys.first src=@vids.values.flatten.first.signed_url controls='true'
+	- if @selected_video
+		- type = @selected_video[:media_type]
+		- src = @selected_video[:file].signed_url
 	
-coffeescript:
+	video#video-player type=@selected_video[:media_type] src=@selected_video[:file].signed_url controls='true'
+		- @subs.each do |sub_file|
+			track label=sub_file.name kind='subtitles' src=sub_file.signed_url srclang='en'
+
+/ .hidden#sub_files
+/   = (@subtitles || []).to_json
+
+/ coffeescript:
+/ 	$ =>
+/ 		$video = $("#video-player")
+/ 		subs = JSON.parse($("#sub_files"))

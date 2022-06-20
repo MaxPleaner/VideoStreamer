@@ -9,6 +9,13 @@ class FilmsController < ApplicationController
   def watch
     @files = @film.get_media_files
     @vids = @files[:video]
+    if params[:selected_video].present?
+      selected_video = JSON.parse(params[:selected_video])
+      @selected_video = {
+        media_type: selected_video["media_type"],
+        file: @vids.values.flatten.find { |vid| vid.name == selected_video["name"] }
+      }
+    end
     @subs = @files[:subtitle]
   end
 
