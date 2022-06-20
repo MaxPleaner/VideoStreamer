@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  root "application#index"
+  root "films#index"
   resources :films, except: [:new, :create]
   resources :unsynced_films, only: [:index, :show]
 

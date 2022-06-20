@@ -12,7 +12,9 @@ class ApplicationController < ActionController::Base
 
 	before_action :authenticate
 
-	def index
+	helper_method :admin?
+	def admin?
+		@role == :admin
 	end
 
 	private

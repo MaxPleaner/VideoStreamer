@@ -1,9 +1,6 @@
 p style="color: green" = notice
 
-h1 Films
-
 #films
   ul
   - @films.each do |film|
-    li
-      a href=film_path(film) = film.name      
+    = render "film_preview", film: film

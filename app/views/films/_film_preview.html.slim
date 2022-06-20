@@ -1,0 +1,24 @@
+.film-box
+      .film-title-bar
+            / a href=film_path(film) = film.name
+            span.film-name = film.name
+
+            br
+
+            - year = film.year.present? ? film.year : "???"
+
+            span
+                  a href=films_path(director: film.director) = film.director
+                  span = " (#{film.year})"
+
+            br
+
+            a href=film_path(film) Link
+
+            br
+
+            - film.tags.each do |tag|
+                  a.tag href=tag_path(tag) = tag.name
+            br
+
+            img src=film.image_url

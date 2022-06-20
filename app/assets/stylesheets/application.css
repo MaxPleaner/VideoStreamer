@@ -14,6 +14,16 @@
  *= require_self
  */
 
+/*body, html {
+    margin: none;
+    padding: none;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}*/
+
 .box {
     border: 1px solid black;
 }
@@ -30,4 +40,50 @@
 .hidden {
     display: none;
     visibility: hidden;
+}
+
+.film-box {
+    margin: 5px;
+    padding: 5px;
+    display: inline-block;
+    width: 280px;
+    height: 200px;
+    border: 1px solid black;
+}
+
+@media only screen and (max-width: 650px) {
+    .film-box {
+        width: 90vw;
+    }
+} 
+
+.film-title-bar {
+    background-color: black;
+    color: white;
+}
+
+.film-title-bar .film-name {
+    font-weight: bold;
+}
+
+.film-title-bar .tag {
+    border: 1px solid lightgreen;
+    margin-right: 5px;
+    padding: 5px;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.film-title-bar .tag:hover {
+    border: 1px solid orange;
+    color: orange;
+}
+
+.film-title-bar a, .film-title-bar a:visited{
+    color: lightgreen;
+    text-decoration: none;
+}
+
+.film-title-bar a:hover {
+    color: orange;
 }

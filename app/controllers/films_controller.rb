@@ -4,6 +4,9 @@ class FilmsController < ApplicationController
   # GET /films or /films.json
   def index
     @films = Film.all
+    if params[:director].present?
+      @films = @films.where(director: params[:director])
+    end
   end
 
   def new
