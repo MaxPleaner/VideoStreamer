@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   get '/unsynced_films/:id/match', to: "unsynced_films#match_unsynced_film", as: :match_unsynced_film
 
   resources :tags, only: %i[create show]
+  post 'tags/:id/remove', to: 'tags#remove', as: :remove_tag
 end
