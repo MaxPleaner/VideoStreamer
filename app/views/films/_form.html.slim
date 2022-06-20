@@ -34,10 +34,10 @@ p
   - if film.tags.none?
     b =< "none"
   - else
-    - film.tags.each_with_index do |tag, idx|
-      a href=tag_path(tag) = tag.name
-      - if idx != film.tags.length - 1
-        span , 
+    - film.tags.each do |tag|
+      ul
+        li
+          a href=tag_path(tag) = tag.name 
 
 form action=tags_path(film: @film) method='POST'
   div

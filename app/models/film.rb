@@ -12,7 +12,8 @@
 #  updated_at  :datetime         not null
 #
 class Film < ApplicationRecord
-	has_many :tags
+	has_many :film_taggings
+	has_many :tags, through: :film_taggings
 	has_many :comments
 
 	def self.unsynced_film_names

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_20_185557) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_20_185736) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_185557) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["film_id"], name: "index_comments_on_film_id"
+  end
+
+  create_table "film_taggings", force: :cascade do |t|
+    t.bigint "film_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["film_id"], name: "index_film_taggings_on_film_id"
+    t.index ["tag_id"], name: "index_film_taggings_on_tag_id"
   end
 
   create_table "films", force: :cascade do |t|
@@ -40,4 +49,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_20_185557) do
   end
 
   add_foreign_key "comments", "films"
+  add_foreign_key "film_taggings", "films"
+  add_foreign_key "film_taggings", "tags"
 end

@@ -3,7 +3,8 @@ class TagsController < ApplicationController
 	before_action :find_tag, only: %i[show]
 
 	def create
-		Tag.find_or_create_by!(name: params[:name], film: @film)
+		tag = Tag.find_or_create_by!(name: params[:name])
+		FilmTagging.find_or_create_by!(tag: tag, film: @film)
 		redirect_to controller: "films", action: "edit", id: @film.id
 	end
 
