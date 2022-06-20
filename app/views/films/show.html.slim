@@ -77,6 +77,29 @@ br
       br
       = button_to "Destroy this film", @film, method: :delete
 
+br
+.comments
+  strong Comments: 
+  - if @film.comments.none?
+    b =< "none"
+  - else
+    - @film.comments.each do |comment|
+      ul
+        li
+          div
+            b = "#{comment.author} (#{comment.created_at.strftime("%m/%d/%Y")}): "
+            span = comment.content
+
+  form action=comments_path method='POST'
+    input type='hidden' name='authenticity_token' value=form_authenticity_token
+    input type='hidden' name='film_id' value=@film.id
+    input type='text' name='author' placeholder='Your Name'
+    br
+    textarea name='content' style='width: 500px' placeholder='Your Comment'
+    br
+    input type='submit' value='Add Comment'
+
+
 .hidden = Tag.pluck(:name).to_json
 
 coffeescript:
