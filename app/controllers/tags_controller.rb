@@ -1,6 +1,7 @@
 class TagsController < ApplicationController
 	before_action :find_film, only: %i[create remove]
 	before_action :find_tag, only: %i[show remove]
+	before_action :admin_only, only: %i[remove]
 
 	def create
 		tag = Tag.find_or_create_by!(name: params[:name])

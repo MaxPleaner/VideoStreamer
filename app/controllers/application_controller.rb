@@ -26,4 +26,8 @@ class ApplicationController < ActionController::Base
 		  !!@role
 		end 
 	end	
+
+	def admin_only
+		head(403) unless admin?
+	end
 end

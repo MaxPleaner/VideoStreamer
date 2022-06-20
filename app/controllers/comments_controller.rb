@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :admin_only, only: %i[remove]
+
   def create
     film = Film.find_by(id: params[:film_id])
     comment = Comment.create!(comment_params)

@@ -1,5 +1,6 @@
 class FilmsController < ApplicationController
   before_action :set_film, only: %i[ show edit update destroy watch]
+  before_action :admin_only, only: %i[update edit destroy]
 
   # GET /films or /films.json
   def index
