@@ -11,6 +11,14 @@ div id="#{dom_id film}"
   p
     strong Year:
     =< film.year
+
+  p
+    strong Tags:
+    - if film.tags.none?
+      b =< "none"
+    - else
+      - film.tags.each do |tag|
+        a href=tag_path(tag) = tag.name
   p
     - if film.image_url
       img src=film.image_url

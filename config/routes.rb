@@ -13,4 +13,6 @@ Rails.application.routes.draw do
 
   # should be a post, but too lazy to convert link to form
   get '/unsynced_films/:id/match', to: "unsynced_films#match_unsynced_film", as: :match_unsynced_film
+
+  resources :tags, only: %i[create show]
 end

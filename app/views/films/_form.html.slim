@@ -24,7 +24,25 @@
 
   div
     = form.label :image_url, style: "display: block"
-    = form.text_field :image_url    
+    = form.text_field :image_url     
 
   div
     = form.submit
+
+p
+  strong Tags: 
+  - if film.tags.none?
+    b =< "none"
+  - else
+    - film.tags.each_with_index do |tag, idx|
+      a href=tag_path(tag) = tag.name
+      - if idx != film.tags.length - 1
+        span , 
+
+form action=tags_path(film: @film) method='POST'
+  div
+    input type='hidden' name='authenticity_token' value=form_authenticity_token
+    input type='hidden' name='film_id' value=@film.id
+    input type='text' name='name'
+    br    
+    input type='submit' value='Add Tag'

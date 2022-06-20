@@ -12,6 +12,9 @@
 #  updated_at  :datetime         not null
 #
 class Film < ApplicationRecord
+	has_many :tags
+	has_many :comments
+
 	def self.unsynced_film_names
 		Gcs.download_index_file.reject do |film_name|
 			Film.exists?(name: film_name)

@@ -1,0 +1,9 @@
+p style="color: green" = notice
+
+h1 = @tag.name
+
+#films
+  ul
+  - @films.each do |film|
+    li
+      a href=film_path(film) = film.name

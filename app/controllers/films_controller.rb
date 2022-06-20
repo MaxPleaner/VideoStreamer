@@ -6,6 +6,15 @@ class FilmsController < ApplicationController
     @films = Film.all
   end
 
+  def new
+    @film = Film.new
+  end
+
+  def create
+    @film = Film.create(film_params)
+    redirect_to @film
+  end
+
   def watch
     @files = @film.get_media_files
     @vids = @files[:video]
