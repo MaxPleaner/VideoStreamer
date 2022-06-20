@@ -5,7 +5,7 @@ class TagsController < ApplicationController
 	def create
 		tag = Tag.find_or_create_by!(name: params[:name])
 		FilmTagging.find_or_create_by!(tag: tag, film: @film)
-		redirect_to controller: "films", action: "edit", id: @film.id
+		redirect_to controller: "films", action: "show", id: @film.id
 	end
 
 	def show
@@ -15,7 +15,7 @@ class TagsController < ApplicationController
 	def remove
 		FilmTagging.find_by(film: @film, tag: @tag).destroy
 		@tag.destroy if @tag.films.none?
-		redirect_to controller: "films", action: "edit", id: @film.id
+		redirect_to controller: "films", action: "show", id: @film.id
 	end
 
 	private

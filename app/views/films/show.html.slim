@@ -1,50 +1,88 @@
+=< link_to "Back to films", films_path
+
 p style="color: green" = notice
 
-== render @film
+.film-show
+  .film-box style="background: url('#{@film.image_url}')"
+    .film-title-bar
+      .content
+        / img.poster-img src=@film.image_url
+        / a href=film_path(film) = @film.name
+        p.film-name = @film.name
 
-hz
+        - year = @film.year.present? ? @film.year : "???"
 
-h2 FILES
+        p
+          a href=films_path(director: @film.director) = @film.director
+          span = " (#{@film.year})"
 
-- if %i[video unsupported_video subtitle].all? { |key| @files[key].none? }
-  h3 No Files
-- else
-  - if @files[:video].any?
-    h3 Video
-    ul
-      - @files[:video].each do |ext, files|
-        - files.each do |file|
+.description
+  p = @film.description
+
+.tags
+  h3 Tags
+  - @film.tags.each do |tag|
+    a.tag href=tag_path(tag) = tag.name
+  br
+  br
+
+  form action=tags_path(film: @film) method='POST'
+    div
+      input type='hidden' name='authenticity_token' value=form_authenticity_token
+      input type='hidden' name='film_id' value=@film.id
+      input#tags-autocomplete type='text' name='name'
+      input type='submit' value='Add Tag'
+
+br
+.files
+  h3 Files
+  - if %i[video unsupported_video subtitle].all? { |key| @files[key].none? }
+    h3 No Files
+  - else
+    - if @files[:video].any?
+      h4 Video (watch in browser)
+      ul
+        - @files[:video].each do |ext, files|
+          - files.each do |file|
+            li
+              a href=file.signed_url = file.name
+
+    - if @files[:unsupported_video].any?
+      h4 Video (must be downloaded)
+      ul
+        - @files[:unsupported_video].each do |file|
           li
             a href=file.signed_url = file.name
 
-  - if @files[:unsupported_video].any?
-    h3 Video (Unsupported)
-    ul
-      - @files[:unsupported_video].each do |file|
-        li
-          a href=file.signed_url = file.name
-
-  - if @files[:subtitle].any?
-    h3 Subtitle
-    ul
-      - @files[:subtitle].each do |file|
-        li
-          a href=file.signed_url = file.name
-
-hz
+    - if @files[:subtitle].any?
+      h4 Subtitle
+      ul
+        - @files[:subtitle].each do |file|
+          li
+            a href=file.signed_url = file.name
 
 - if @files[:video].any?
-  h1
-    a href=watch_film_path(@film) WATCH IN BROWSER
-
-hz
-
-div
-  => link_to "Edit this film", edit_film_path(@film)
-  '|
-  =< link_to "Back to films", films_path
-
   br
+  .watch-link
+      h1
+        a href=watch_film_path(@film) WATCH IN BROWSER
+
+- if admin?
   br
-  br
-  = button_to "Destroy this film", @film, method: :delete
+  .admin-links
+    h1 admin
+    div
+      => link_to "Edit this film", edit_film_path(@film)
+      br
+      br
+      = button_to "Destroy this film", @film, method: :delete
+
+.hidden = Tag.pluck(:name).to_json
+
+coffeescript:
+
+  $ =>
+    tags = JSON.parse($(".hidden").text())
+    $("#tags-autocomplete").autocomplete({
+      source: tags
+    })

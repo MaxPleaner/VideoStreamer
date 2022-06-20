@@ -21,10 +21,39 @@ body, html {
 
 body {
     background-color: black;
+    color: white;
+}
+
+a {
+    color: lightgreen;
+}
+
+a:hover {
+    color: orange;
 }
 
 .box {
-    border: 1px solid black;
+    border: 1px solid white;
+}
+
+.tags, .files, .description, .watch-link, .admin-links {
+    outline: 1px solid white;
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+}
+
+.watch-link {
+    display: inline-block;
+}
+
+.description {
+    width: 600px;
+    display: block;
+}
+
+h3 {
+    text-decoration: underline;
 }
 
 .link-box:hover {
@@ -39,6 +68,10 @@ body {
 .hidden {
     display: none;
     visibility: hidden;
+}
+
+.film-show {
+
 }
 
 .film-box {
@@ -99,7 +132,7 @@ body {
     font-weight: bold;
 }
 
-.film-title-bar .tag {
+.tag {
     border: 1px solid lightgreen;
     margin-right: 5px;
     padding: 5px;
@@ -107,7 +140,7 @@ body {
     border-radius: 10px;
 }
 
-.film-title-bar .tag:hover {
+.tag:hover {
     border: 1px solid orange;
     color: orange;
 }
