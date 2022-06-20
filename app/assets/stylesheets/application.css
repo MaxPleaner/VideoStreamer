@@ -14,15 +14,14 @@
  *= require_self
  */
 
-/*body, html {
+body, html {
     margin: none;
     padding: none;
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
-}*/
+    background-color: black;
+}
 
 .box {
     border: 1px solid black;
@@ -44,22 +43,56 @@ body {
 
 .film-box {
     margin: 5px;
-    padding: 5px;
+    padding: 0px;
     display: inline-block;
     width: 280px;
-    height: 200px;
-    border: 1px solid black;
-}
-
+    height: 400px;
+    outline: 1px solid white;
+    background-size: 300px !important;
+    background-repeat: no-repeat !important;
+    position: relative;
+}   
+/*
 @media only screen and (max-width: 650px) {
     .film-box {
         width: 90vw;
     }
-} 
+} */
+
+.film-box .link-placeholder {
+    /*background-color: red;*/
+    display: inline-block;
+    width: 280px;
+    height: 400px;
+}
+
+.film-box .link-placeholder:hover {
+    cursor: pointer;
+    outline: 5px solid orange;
+}
 
 .film-title-bar {
+    /*float: left;*/
+    position: absolute;
+    bottom: 0;
     background-color: black;
     color: white;
+    width: 100%;
+    padding: 0px;
+    border-top: 2px solid white;
+}
+
+.film-title-bar .content p {
+    margin: 2px 0 !important;
+    padding: none;
+}
+
+.film-title-bar .content {
+    padding: 3px;
+}
+
+.film-title-bar .poster-img {
+    width: 100%;
 }
 
 .film-title-bar .film-name {
