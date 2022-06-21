@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get "films/:id/watch", to: "films#watch", as: :watch_film
 
   # should be a post, but too lazy to convert link to form
-  get '/unsynced_films/:id/match', to: "unsynced_films#match_unsynced_film", as: :match_unsynced_film
+  get '/unsynced_films/match', to: "unsynced_films#match_unsynced_film", as: :match_unsynced_film
 
   resources :tags, only: %i[create show]
   post 'tags/:id/remove', to: 'tags#remove', as: :remove_tag
