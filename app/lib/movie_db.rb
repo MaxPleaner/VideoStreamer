@@ -28,7 +28,7 @@ class MovieDb
 	def self.lookup(query_name)
 		url = "#{ROOT_URL}/search/movie?api_key=#{API_KEY}&query=#{query_name}"
 		results = JSON.parse(RestClient.get(url).body)["results"].first(30)
-		results.map { |result| parse_details(result) }.sort_by { |entry| entry["date"] }
+		results.map { |result| parse_details(result) }
 	end
 
 	def self.get_credits(movie_id)
