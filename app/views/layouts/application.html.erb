@@ -23,8 +23,7 @@
       <a href='<%= unsynced_films_path%>'> unsynced films </a>
       <a href='<%= films_path%>'> Films </a>   
       <hr>
-    <% else %>
-      <%= yield %>
     <% end %>
+    <%= yield %>
   </body>
 </html>

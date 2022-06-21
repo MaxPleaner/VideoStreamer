@@ -4,19 +4,19 @@ p style="color: green" = notice
 
 .film-show
   .film-box style="background: url('#{@film.image_url}')"
-    .film-title-bar
-      .content
-        / img.poster-img src=@film.image_url
-        / a href=film_path(film) = @film.name
-        p.film-name = @film.name
-
-        - year = @film.year.present? ? @film.year : "???"
-
-        p
-          a href=films_path(director: @film.director) = @film.director
-          span = " (#{@film.year})"
 
 .description
+  .film-title-bar
+    .content
+      / img.poster-img src=@film.image_url
+      / a href=film_path(film) = @film.name
+      p.film-name = @film.name
+
+      - year = @film.year.present? ? @film.year : "???"
+
+      p
+        a href=films_path(director: @film.director) = @film.director
+        span = " (#{@film.year})"
   p = @film.description
 
 .tags

@@ -63,6 +63,9 @@ a:hover {
     display: inline-block;
     margin: 5px;
     padding: 5px;
+    width: 300px;
+    height: 400px;
+    float: left;    
 }
 
 .watch-link {
@@ -70,8 +73,12 @@ a:hover {
 }
 
 .description {
-    width: 600px;
-    display: block;
+    width: 300px;
+    height: 400px;
+    float: left;
+    /*display: inline-block;*/
+    /*width: 600px;*/
+    /*display: block;*/
 }
 
 h3 {
@@ -93,7 +100,8 @@ h3 {
 }
 
 .film-show {
-
+    display: inline-block;
+    float: left;
 }
 
 .film-box {
@@ -126,15 +134,17 @@ h3 {
     outline: 5px solid orange;
 }
 
-.film-title-bar {
-    /*float: left;*/
+.film-box .film-title-bar {
     position: absolute;
     bottom: 0;
+    border-top: 2px solid white;
+}
+
+.film-title-bar {
     background-color: black;
     color: white;
     width: 100%;
     padding: 0px;
-    border-top: 2px solid white;
 }
 
 .film-title-bar .content p {
@@ -157,6 +167,7 @@ h3 {
 .tag {
     border: 1px solid lightgreen;
     margin-right: 5px;
+    margin-bottom: 5px;
     padding: 5px;
     display: inline-block;
     border-radius: 10px;

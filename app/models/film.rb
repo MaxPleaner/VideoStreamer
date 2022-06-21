@@ -12,9 +12,9 @@
 #  updated_at  :datetime         not null
 #
 class Film < ApplicationRecord
-	has_many :film_taggings
+	has_many :film_taggings, dependent: :destroy
 	has_many :tags, through: :film_taggings
-	has_many :comments
+	has_many :comments, dependent: :destroy
 
 	def self.unsynced_film_names
 		Gcs.download_index_file.reject do |film_name|
@@ -23,13 +23,18 @@ class Film < ApplicationRecord
 	end
 
 	def self.create_from_movie_db_lookup(folder_name, movie_db_results)
-		Film.create!(
+		film = Film.create!(
 			name: folder_name,
 			description: movie_db_results[:details],
 			year: DateTime.parse(movie_db_results[:date]).year,
 			director: movie_db_results[:director],
 			image_url: movie_db_results[:img_path],
 		)
+		movie_db_results[:genres].each do |genre|
+			tag = Tag.find_or_create_by!(name: genre)
+			FilmTagging.find_or_create_by!(film: film, tag: tag)
+		end
+		film
 	end
 
 	def get_files

@@ -5,7 +5,7 @@ class FilmsController < ApplicationController
   # GET /films or /films.json
   def index
     @all_directors = Film.distinct(:director).pluck(:director).sort
-    @all_tags = Tag.pluck(:name).sort
+    @all_tags = Tag.pluck(:name).sort_by(&:downcase)
 
     @films = Film.all
     @opts = {}
@@ -76,7 +76,14 @@ class FilmsController < ApplicationController
 
   # DELETE /films/1 or /films/1.json
   def destroy
+    tags = @film.tags.to_a
     @film.destroy
+    binding.pry
+    tags.each do |tag|
+      if tag.films.none?
+        tag.destroy!
+      end
+    end
 
     respond_to do |format|
       format.html { redirect_to films_url, notice: "Film was successfully destroyed." }
