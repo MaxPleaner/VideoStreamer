@@ -1,10 +1,14 @@
 h2 = @folder_name
 
+p style="color: white"
+	i = notice
+
 form action=force_create_film_path(name: @folder_name) method="POST"
 	input type='hidden' name='authenticity_token' value=form_authenticity_token
 	input type='submit' value='force create'
 
-form action=unsynced_film_path(@folder_name) method='GET'
+form action=unsynced_film_path method='GET'
+	input type='hidden' name='id' value=@folder_name
 	input type='text' value=@query_name name='query_name'
 	input type='submit'
 
@@ -12,7 +16,7 @@ div class='float: left'
 	b = "#{@results.count} search results."
 
 - @results.each.with_index do |result, idx|
-	a href=match_unsynced_film_path(@folder_name, match_idx: idx, query_name: @query_name) 
+	a href=match_unsynced_film_path(id: @folder_name, match_idx: idx, query_name: @query_name) 
 		div.box.link-box
 			div style='display: inline-block; float: left; width: 500px;'
 				ul

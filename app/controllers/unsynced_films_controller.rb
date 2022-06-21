@@ -10,6 +10,10 @@ class UnsyncedFilmsController < ApplicationController
   	@query_name = params[:query_name]
   	@query_name = @folder_name if @query_name.blank?
   	@results = MovieDb.lookup(@query_name)
+    if @results.nil?
+      flash[:notice] = "Invalid query"
+      @results = []
+    end
   end
 
   def match_unsynced_film
