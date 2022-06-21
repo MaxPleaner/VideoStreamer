@@ -1,4 +1,6 @@
 class UnsyncedFilmsController < ApplicationController
+  before_action :admin_only
+
   def index
     @film_names = Film.unsynced_film_names
   end
@@ -17,5 +19,10 @@ class UnsyncedFilmsController < ApplicationController
   	result = MovieDb.lookup(@query_name)[@match_idx.to_i]
   	film = Film.create_from_movie_db_lookup(@folder_name, result)
   	redirect_to film
+  end
+
+  def force_create
+    film = Film.create!(name: params[:name])
+    redirect_to film
   end
 end

@@ -1,5 +1,9 @@
 h2 = @folder_name
 
+form action=force_create_film_path(name: @folder_name) method="POST"
+	input type='hidden' name='authenticity_token' value=form_authenticity_token
+	input type='submit' value='force create'
+
 form action=unsynced_film_path(@folder_name) method='GET'
 	input type='text' value=@query_name name='query_name'
 	input type='submit'

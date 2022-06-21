@@ -4,7 +4,7 @@ class FilmsController < ApplicationController
 
   # GET /films or /films.json
   def index
-    @all_directors = Film.distinct(:director).pluck(:director).sort
+    @all_directors = Film.distinct(:director).pluck(:director).compact.sort
     @all_tags = Tag.pluck(:name).sort_by(&:downcase)
 
     @films = Film.all
@@ -117,6 +117,6 @@ class FilmsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def film_params
-      params.require(:film).permit(:name, :director, :year, :description)
+      params.require(:film).permit(:name, :director, :year, :description, :image_url)
     end
 end

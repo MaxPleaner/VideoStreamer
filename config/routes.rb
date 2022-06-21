@@ -7,8 +7,12 @@ Rails.application.routes.draw do
   post '/recommendation/:id/destroy', to: "films#destroy_recommendation", as: :destroy_recommendation
   
   resources :films, except: [:new, :create]
-  resources :unsynced_films, only: [:index, :show]
+  resources :unsynced_films, only: [:index]
 
+  # This is done outside of resources because the :id passed here is actually a string
+  # And it can cause issues when part of the URL
+  get '/unsynced_film', to: "unsynced_films#show", as: :unsynced_film
+  post '/force_create_unsynced_film', to: "unsynced_films#force_create", as: :force_create_film
 
   get "films/:id/watch", to: "films#watch", as: :watch_film
 
