@@ -30,6 +30,25 @@ class FilmsController < ApplicationController
     end
   end
 
+  def show_recommendations
+    @recommendations = Recommendation.all
+  end
+
+  def new_recommendation
+  end
+
+  def destroy_recommendation
+    @recommendation = Recommendation.find(params[:id])
+    @recommendation.destroy!
+    redirect_to :recommendations
+  end
+
+  def submit_recommendation
+    Recommendation.create(sender: params[:sender], message: params[:message])
+    flash[:notice] = "Your recommendation has been received"
+    redirect_to :films  
+  end
+
   def new
     @film = Film.new
   end

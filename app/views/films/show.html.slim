@@ -5,102 +5,106 @@ p style="color: green" = notice
 .film-show
   .film-box style="background: url('#{@film.image_url}')"
 
-.description
-  .film-title-bar
-    .content
-      / img.poster-img src=@film.image_url
-      / a href=film_path(film) = @film.name
-      p.film-name = @film.name
+  .description-tags
+    .film-title-bar
+      .content
+        / img.poster-img src=@film.image_url
+        / a href=film_path(film) = @film.name
+        p.film-name = @film.name
 
-      - year = @film.year.present? ? @film.year : "???"
+        - year = @film.year.present? ? @film.year : "???"
 
-      p
-        a href=films_path(director: @film.director) = @film.director
-        span = " (#{@film.year})"
-  p = @film.description
+        p
+          a href=films_path(director: @film.director) = @film.director
+          span = " (#{@film.year})"
+    p.description = @film.description
 
-.tags
-  h3 Tags
-  - @film.tags.each do |tag|
-    a.tag href=films_path(tag: tag.name) = tag.name
-  br
-  br
+    - if @film.tags.none?
+      b No tags yet
+      br
+      br
+    - @film.tags.each do |tag|
+      a.tag href=films_path(tag: tag.name) = tag.name  
 
-  form action=tags_path(film: @film) method='POST'
-    div
-      input type='hidden' name='authenticity_token' value=form_authenticity_token
-      input type='hidden' name='film_id' value=@film.id
-      input#tags-autocomplete type='text' name='name'
-      input type='submit' value='Add Tag'
+    br
+    br
+    form action=tags_path(film: @film) method='POST'
+      div
+        input type='hidden' name='authenticity_token' value=form_authenticity_token
+        input type='hidden' name='film_id' value=@film.id
+        input#tags-autocomplete type='text' name='name'
+        input type='submit' value='Add Tag'
 
-br
-.files
-  h3 Files
-  - if %i[video unsupported_video subtitle].all? { |key| @files[key].none? }
-    h3 No Files
-  - else
+  .files
     - if @files[:video].any?
-      h4 Video (watch in browser)
-      ul
-        - @files[:video].each do |ext, files|
-          - files.each do |file|
+    .watch-link
+        h2
+          a href=watch_film_path(@film) Watch in browser with subtitle support
+
+    h3 Files
+    - if %i[video unsupported_video subtitle].all? { |key| @files[key].none? }
+      h3 No Files
+    - else
+      - if @files[:video].any?
+        h4 Video (browser playback supported)
+        ul
+          - @files[:video].each do |ext, files|
+            - files.each do |file|
+              li
+                a href=file.signed_url = file.name
+
+      - if @files[:unsupported_video].any?
+        h4 Video (must be downloaded)
+        ul
+          - @files[:unsupported_video].each do |file|
             li
               a href=file.signed_url = file.name
 
-    - if @files[:unsupported_video].any?
-      h4 Video (must be downloaded)
-      ul
-        - @files[:unsupported_video].each do |file|
+      - if @files[:subtitle].any?
+        h4 Subtitle
+        ul
+          - @files[:subtitle].each do |file|
+            li
+              a href=file.signed_url = file.name
+      - else
+        h4 Subtitles: none
+
+  .comments
+    strong Comments: 
+    - if @film.comments.none?
+      b =< "none"
+    - else
+      - @film.comments.each do |comment|
+        ul
           li
-            a href=file.signed_url = file.name
+            div
+              b = "#{comment.author} (#{comment.created_at.strftime("%m/%d/%Y")}): "
+              span = comment.content
 
-    - if @files[:subtitle].any?
-      h4 Subtitle
-      ul
-        - @files[:subtitle].each do |file|
-          li
-            a href=file.signed_url = file.name
-
-- if @files[:video].any?
-  br
-  .watch-link
-      h1
-        a href=watch_film_path(@film) WATCH IN BROWSER
-
-- if admin?
-  br
-  .admin-links
-    h1 admin
-    div
-      => link_to "Edit this film", edit_film_path(@film)
-      br
-      br
-      = button_to "Destroy this film", @film, method: :delete
-
-br
-.comments
-  strong Comments: 
-  - if @film.comments.none?
-    b =< "none"
-  - else
-    - @film.comments.each do |comment|
-      ul
-        li
-          div
-            b = "#{comment.author} (#{comment.created_at.strftime("%m/%d/%Y")}): "
-            span = comment.content
-
-  form action=comments_path method='POST'
-    input type='hidden' name='authenticity_token' value=form_authenticity_token
-    input type='hidden' name='film_id' value=@film.id
-    input type='text' name='author' placeholder='Your Name'
     br
-    textarea name='content' style='width: 500px' placeholder='Your Comment'
     br
-    input type='submit' value='Add Comment'
+    form action=comments_path method='POST'
+      input type='hidden' name='authenticity_token' value=form_authenticity_token
+      input type='hidden' name='film_id' value=@film.id
+      input type='text' name='author' placeholder='Your Name'
+      br
+      textarea name='content' style='width: 500px' placeholder='Your Comment'
+      br
+      input type='submit' value='Add Comment'
+
+  - if admin?
+    br
+    .admin-links
+      h1 admin
+      div
+        => link_to "Edit this film", edit_film_path(@film)
+        br
+        br
+        = button_to "Destroy this film", @film, method: :delete
 
 
-.hidden = Tag.pluck(:name).to_json
+
+  .hidden = Tag.pluck(:name).to_json
 
 coffeescript:
 

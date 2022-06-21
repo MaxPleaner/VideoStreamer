@@ -1,0 +1,8 @@
+ul
+  - @recommendations.each do |rec|
+    li
+      span = "#{rec.sender} (#{rec.created_at.strftime("%m/%d/%Y")}) - #{rec.message}"
+      form method="POST" action=destroy_recommendation_path(id: rec.id)
+        input type='hidden' name='authenticity_token' value=form_authenticity_token
+        input type='submit' value='Destroy'
+      br

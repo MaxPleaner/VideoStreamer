@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
-  get 'comments/create'
-  get 'comments/destroy'
-  resources :films
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
-
   root "films#index"
+
+  get "films/recommendation", to: "films#new_recommendation", as: :film_recommendation
+  post "films/recommendation", to: "films#submit_recommendation", as: :submit_film_recommendation
+  get '/recommendations', to: "films#show_recommendations", as: :recommendations
+  post '/recommendation/:id/destroy', to: "films#destroy_recommendation", as: :destroy_recommendation
+  
   resources :films, except: [:new, :create]
   resources :unsynced_films, only: [:index, :show]
+
 
   get "films/:id/watch", to: "films#watch", as: :watch_film
 

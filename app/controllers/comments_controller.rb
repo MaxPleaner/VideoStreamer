@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
     comment = Comment.find(params[:id])
     film = comment.film 
     comment.destroy!
-    redirect_to controller: "films", action: "show", id: film.id
+    redirect_to controller: "films", action: "edit", id: film.id
   end
 
   private

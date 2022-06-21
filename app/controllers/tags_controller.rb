@@ -16,7 +16,7 @@ class TagsController < ApplicationController
 	def remove
 		FilmTagging.find_by(film: @film, tag: @tag).destroy
 		@tag.destroy if @tag.films.none?
-		redirect_to controller: "films", action: "show", id: @film.id
+		redirect_to controller: "films", action: "edit", id: @film.id
 	end
 
 	private

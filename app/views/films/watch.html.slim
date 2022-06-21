@@ -1,3 +1,8 @@
+a href=film_path(@film) back   
+span &nbsp &nbsp &nbsp &nbsp
+b = @film.name
+br
+
 - if !@selected_video && @vids.values.flatten.count > 1
 	h3 There are multiple video files. Please pick which one to use.
 	form action=watch_film_path(@film)
@@ -17,7 +22,7 @@
 		- type = @selected_video[:media_type]
 		- src = @selected_video[:file].signed_url
 	
-	video#video-player type=@selected_video[:media_type] src=@selected_video[:file].signed_url controls='true'
+	video#video-player type=type src=src controls='true'
 		- @subs.each do |sub_file|
 			track label=sub_file.name kind='subtitles' src=sub_file.signed_url srclang='en'
 

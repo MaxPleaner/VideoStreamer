@@ -1,0 +1,10 @@
+a href=films_path back to films
+br
+br
+form action=submit_film_recommendation_path method="POST"
+  input type='hidden' name='authenticity_token' value=form_authenticity_token
+  input type='text' name='sender' placeholder='your name'
+  br
+  textarea name='message' placeholder='your recommendation / request here' style='width: 500px'
+  br
+  input type='submit' value='Send'

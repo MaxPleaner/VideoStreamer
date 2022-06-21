@@ -1,27 +1,28 @@
-p style="color: green" = notice
+p style="font-weight: bold; color: white" = notice
 
 #index-filters
   .index-filter
-    b Sort: 
+    b.filter-title Sort: 
     select#sort-select
       option name='sort' value='name' Name
       option name='sort' value='date_asc' Date (old to new)
       option name='sort' value='date_desc' Date (new to old)
 
   .index-filter
-    b  Director: 
+    b.filter-title Director: 
     select#director-select
       option name='director' value='all' selected='true' All
       - @all_directors.each do |director|
         option name='director' value=director = director
 
   .index-filter
-    b  Tag: 
+    b.filter-title Tag: 
     select#tag-select
       option name='tag' value='all' selected='true'  All
       - @all_tags.each do |tag|
         option name='tag' value=tag = tag
 
+  a.recommendation-link href=film_recommendation_path Recommend a film
   a.info-link href=info_path About this site
 
 
