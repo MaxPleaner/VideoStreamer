@@ -17,6 +17,9 @@ class ApplicationController < ActionController::Base
 		@role == :admin
 	end
 
+	def info
+	end
+
 	private
 	def authenticate
 		authenticate_or_request_with_http_basic do |id, password|

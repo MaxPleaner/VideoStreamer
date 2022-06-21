@@ -32,6 +32,28 @@ a:hover {
     color: orange;
 }
 
+#index-filters {
+    outline: 1px solid white;
+    padding: 5px;
+    margin: 5px;
+}
+
+.index-filter {
+    background-color: SaddleBrown;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.info-link {
+    /*float: right;*/
+    font-style: italic;
+    background-color: gold;
+    color: darkgreen;
+    padding: 2px 5px;
+    margin: 5px;
+    display: inline-block;
+}
+
 .box {
     border: 1px solid white;
 }

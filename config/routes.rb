@@ -21,4 +21,6 @@ Rails.application.routes.draw do
 
   resources :comments, only: %i[create]
   post 'comments/:id/remove', to: "comments#remove", as: :remove_comment
+
+  get 'info', to: "application#info", as: :info
 end

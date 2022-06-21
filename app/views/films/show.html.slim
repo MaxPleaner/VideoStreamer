@@ -22,7 +22,7 @@ p style="color: green" = notice
 .tags
   h3 Tags
   - @film.tags.each do |tag|
-    a.tag href=tag_path(tag) = tag.name
+    a.tag href=films_path(tag: tag.name) = tag.name
   br
   br
 

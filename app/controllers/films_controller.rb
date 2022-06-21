@@ -4,9 +4,29 @@ class FilmsController < ApplicationController
 
   # GET /films or /films.json
   def index
+    @all_directors = Film.distinct(:director).pluck(:director).sort
+    @all_tags = Tag.pluck(:name).sort
+
     @films = Film.all
-    if params[:director].present?
+    @opts = {}
+
+    if params[:director].present? && params[:director] != "all"
+      @opts[:director] = params[:director]
       @films = @films.where(director: params[:director])
+    end
+
+    if params[:tag].present? && params[:tag] != "all"
+      @opts[:tag] = params[:tag]
+      @films = @films.joins(film_taggings: :tag).where(tag: { name: params[:tag] })
+    end
+
+    @opts[:sort] = params[:sort]
+    if params[:sort] == "date_asc"
+      @films = @films.order(year: :asc) 
+    elsif params[:sort] == "date_desc"
+      @films = @films.order(year: :desc)       
+    elsif params[:sort] == "name"
+      @films = @films.order(name: :asc)
     end
   end
 

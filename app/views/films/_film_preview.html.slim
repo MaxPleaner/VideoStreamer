@@ -13,6 +13,6 @@
         span = " (#{film.year})"
 
       - film.tags.each do |tag|
-        a.tag href=tag_path(tag) = tag.name
+        a.tag href=films_path(tag: tag.name) = tag.name
 
 

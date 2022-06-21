@@ -1,5 +1,51 @@
 p style="color: green" = notice
 
+#index-filters
+  .index-filter
+    b Sort: 
+    select#sort-select
+      option name='sort' value='name' Name
+      option name='sort' value='date_asc' Date (old to new)
+      option name='sort' value='date_desc' Date (new to old)
+
+  .index-filter
+    b  Director: 
+    select#director-select
+      option name='director' value='all' selected='true' All
+      - @all_directors.each do |director|
+        option name='director' value=director = director
+
+  .index-filter
+    b  Tag: 
+    select#tag-select
+      option name='tag' value='all' selected='true'  All
+      - @all_tags.each do |tag|
+        option name='tag' value=tag = tag
+
+  a.info-link href=info_path About this site
+
+
 #films
   - @films.each do |film|
     = render "film_preview", film: film
+
+coffeescript:
+  $ =>
+    urlParams = new URLSearchParams(window.location.search)
+
+    director = urlParams.get("director")
+    tag = urlParams.get("tag")
+    sort = urlParams.get("sort")
+
+    $("#sort-select")[0].value = sort if sort
+    $("#tag-select")[0].value = tag if tag
+    $("#director-select")[0].value = director if director
+
+    $(".index-filter select").on "change", (e) =>
+      selected = $(".index-filter select option").filter () ->
+        @selected
+      params = []
+      $.each selected, () -> 
+        params.push([@getAttribute("name"), @getAttribute("value")])
+      path = "/films?" + params.map(([key, val]) => "#{key}=#{val}").join("&")
+      window.location.href = path
