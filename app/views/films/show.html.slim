@@ -37,9 +37,9 @@ p style="color: green" = notice
 
   .files
     - if @files[:video].any?
-    .watch-link
-        h2
-          a href=watch_film_path(@film) Watch in browser with subtitle support
+      .watch-link
+          h2
+            a href=watch_film_path(@film) Watch in browser with subtitle support
 
     h3 Files
     - if %i[video unsupported_video subtitle].all? { |key| @files[key].none? }
