@@ -1,6 +1,6 @@
 class FilmsController < ApplicationController
   before_action :set_film, only: %i[ show edit update destroy watch]
-  before_action :admin_only, only: %i[update edit destroy]
+  before_action :admin_only, only: %i[update edit destroy destroy_recommendation]
 
   # GET /films or /films.json
   def index
@@ -25,7 +25,7 @@ class FilmsController < ApplicationController
       @films = @films.order(year: :asc) 
     elsif params[:sort] == "date_desc"
       @films = @films.order(year: :desc)       
-    elsif params[:sort] == "name"
+    elsif params[:sort] == "name" || params[:sort].blank?
       @films = @films.order(name: :asc)
     end
   end
@@ -97,7 +97,6 @@ class FilmsController < ApplicationController
   def destroy
     tags = @film.tags.to_a
     @film.destroy
-    binding.pry
     tags.each do |tag|
       if tag.films.none?
         tag.destroy!
