@@ -30,7 +30,10 @@ p style="font-weight: bold; color: white" = notice
 
 #films
   - if admin?
-    h3 = "Total size: #{number_to_human_size @films.sum(&:size) * 1_000_000}"
+    - total_size = @films.sum(&:size)
+    h3 = "Total size: #{number_to_human_size total_size * 1_000_000}"
+    h4 = "Cost per month: $#{((total_size / 1_000) / 50).round(1).to_s.ljust(4, "0")}"
+
   - @films.each do |film|
     = render "film_preview", film: film
 
