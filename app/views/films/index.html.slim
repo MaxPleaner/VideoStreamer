@@ -7,6 +7,8 @@ p style="font-weight: bold; color: white" = notice
       option name='sort' value='name' Name
       option name='sort' value='date_asc' Date (old to new)
       option name='sort' value='date_desc' Date (new to old)
+      - if admin?
+        option name='size' value='size' Size
 
   .index-filter
     b.filter-title Director: 
@@ -27,6 +29,8 @@ p style="font-weight: bold; color: white" = notice
 
 
 #films
+  - if admin?
+    h3 = "Total size: #{number_to_human_size @films.sum(&:size) * 1_000_000}"
   - @films.each do |film|
     = render "film_preview", film: film
 

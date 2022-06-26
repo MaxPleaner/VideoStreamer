@@ -3,7 +3,12 @@ namespace :films do
 	 	src_path = args[:src_path] || ENV["FILMS_DIR"]
 	 	Gcs.sync_folder(src_path)
 	end
-	task :sync_db => :environment do |t|
-	 	Film.sync_db_with_gcs
+	task :update_file_sizes => :environment do |t|
+		include ActionView::Helpers::NumberHelper
+	 	Film.all.each do |film|
+	 		files = film.files
+	 		size_mb = files.sum { |file| file.size / 1_000_000.0 }
+	 		film.update(size: size_mb)
+	 	end
 	end	
 end

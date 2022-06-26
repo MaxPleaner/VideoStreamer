@@ -40,6 +40,7 @@ class Film < ApplicationRecord
 	def get_files
 		Gcs.get_files_in_folder(self.name)
 	end
+	alias files get_files
 
 	def get_media_files
 		video_formats = {

@@ -15,4 +15,8 @@
       - film.tags.each do |tag|
         a.tag href=films_path(tag: tag.name) = tag.name
 
+      - if admin?
+        br
+        b = "Size: #{number_to_human_size film.size * 1_000_000}"
+
 

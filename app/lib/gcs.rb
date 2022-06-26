@@ -11,7 +11,9 @@ class Gcs
 
 	def self.sync_folder(local_folder)
 		# This uploads everything in local_folder to the bucket
-		`gsutil -m cp -n -r #{local_folder}/* gs://#{BUCKET.name}`
+		cmd = "gsutil -m rsync -r -d #{local_folder} gs://#{BUCKET.name}"
+		puts cmd
+		`#{cmd}`
 
 		# Here we create an index file which lists all the top-level directories
 		dirs = Dir.glob("#{local_folder}/*").
