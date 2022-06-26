@@ -25,6 +25,8 @@ class FilmsController < ApplicationController
       @films = @films.order(year: :asc) 
     elsif params[:sort] == "date_desc"
       @films = @films.order(year: :desc)
+    elsif params[:sort] == "newly_uploaded"
+      @films = @films.order(created_at: :desc)
     elsif params[:sort] == "size"
       @films = @films.order(size: :desc)     
     elsif params[:sort] == "name" || params[:sort].blank?
