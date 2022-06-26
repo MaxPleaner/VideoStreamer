@@ -37,6 +37,14 @@ class Film < ApplicationRecord
 		film
 	end
 
+	def size
+		if super.nil?
+	 		size_mb = files.sum { |file| file.size / 1_000_000.0 }
+	 		update(size: size_mb)
+ 		end
+ 		super		
+	end
+
 	def get_files
 		Gcs.get_files_in_folder(self.name)
 	end
