@@ -23,3 +23,7 @@ Back up your movies to the cloud, share them with friends (stream in the browser
     - `USER_PASSWORD`
 5. Run `rake db:create db:migrate` to set up the database.
 6. Run `rake films:upload` to sync your local film collection with GCS (and create an index file)
+7. Run `rails server` and open localhost:3000. Log in with the admin credentials you set up.
+8. Click the "unsynced films" tab in the navbar and go through your films, importing each. Metadata can be auto-loaded from Movie DB. If there is no match, you can use "force upload" and then go to the "edit film" page (link at the bottom of the film page) and add the details there. 
+9. You can deploy to Heroku same as any Rails app.
+ 
