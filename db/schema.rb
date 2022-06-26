@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_26_155951) do
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "size", default: -1.0, comment: "in megabytes"
+    t.float "size", comment: "in megabytes"
   end
 
   create_table "recommendations", force: :cascade do |t|
