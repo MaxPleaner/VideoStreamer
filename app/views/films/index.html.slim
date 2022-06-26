@@ -4,10 +4,10 @@ p style="font-weight: bold; color: white" = notice
   .index-filter
     b.filter-title Sort: 
     select#sort-select
+      option name='sort' value='newly_uploaded' Newly Uploaded
       option name='sort' value='name' Name
       option name='sort' value='date_asc' Date (old to new)
       option name='sort' value='date_desc' Date (new to old)
-      option name='sort' value='newly_uploaded' Newly Uploaded
       - if admin?
         option name='sort' value='size' Size
 
