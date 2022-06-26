@@ -24,7 +24,9 @@ class FilmsController < ApplicationController
     if params[:sort] == "date_asc"
       @films = @films.order(year: :asc) 
     elsif params[:sort] == "date_desc"
-      @films = @films.order(year: :desc)       
+      @films = @films.order(year: :desc)
+    elsif params[:sort] == "size"
+      @films = @films.order(size: :desc)     
     elsif params[:sort] == "name" || params[:sort].blank?
       @films = @films.order(name: :asc)
     end
