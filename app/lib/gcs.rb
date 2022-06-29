@@ -9,6 +9,10 @@ class Gcs
 	BUCKET = STORAGE.bucket(ENV.fetch("GCS_BUCKET_NAME"))
 	INDEX_FILE_NAME = "0_index.json"
 
+	def self.signed_url(file)
+		file.signed_url(expires: 604800)
+	end
+
 	def self.sync_folder(local_folder)
 		# This uploads everything in local_folder to the bucket
 		cmd = "gsutil -m rsync -r -d #{local_folder} gs://#{BUCKET.name}"

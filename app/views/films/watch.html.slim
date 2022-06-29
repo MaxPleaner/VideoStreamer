@@ -16,15 +16,15 @@ br
 - else
 	- if @vids.values.flatten.length == 1
 		- type = @vids.keys.first
-		- src = @vids.values.flatten.first.signed_url
-		video#video-player type=@vids.keys.first src=@vids.values.flatten.first.signed_url controls='true'
+		- src = Gcs.signed_url(@vids.values.flatten.first)
+		video#video-player type=@vids.keys.first src=Gcs.signed_url(@vids.values.flatten.first) controls='true'
 	- if @selected_video
 		- type = @selected_video[:media_type]
-		- src = @selected_video[:file].signed_url
+		- src = Gcs.signed_url(@selected_video[:file])
 	
 	video#video-player type=type src=src controls='true'
 		- @subs.each do |sub_file|
-			track label=sub_file.name kind='subtitles' src=sub_file.signed_url srclang='en'
+			track label=sub_file.name kind='subtitles' src=Gcs.signed_url(sub_file) srclang='en'
 
 / .hidden#sub_files
 /   = (@subtitles || []).to_json
