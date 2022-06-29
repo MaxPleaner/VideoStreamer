@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+def run_cmd(cmd)
+  puts cmd
+  `#{cmd}`
+end
+
+movies_dir = "/media/max/media/Movies/ALL"
+convert_dir = File.expand_path("~/Videos/Convert")
+
+`mkdir #{convert_dir}` unless File.directory?(convert_dir)
+
+mkvs = Dir.glob("#{movies_dir}/**/*.mkv")
+puts "WILL CONVERT: \n#{mkvs.join("\n")}"
+
+mkvs.each.with_index do |mkv_path, idx|
+  filename = File.basename(mkv_path)
+
+  mkv_convert_path = "#{convert_dir}/#{filename}"
+  run_cmd <<-TXT
+    mv "#{mkv_path}" "#{mkv_convert_path}"
+  TXT
+
+  mp4_convert_path = "#{mkv_convert_path.gsub(".mkv", ".mp4")}"
+  run_cmd <<-TXT
+    ffmpeg -i "#{mkv_convert_path}" "#{mp4_convert_path}"
+  TXT
+
+  run_cmd <<-TXT
+    mv "#{mp4_convert_path}" "#{File.dirname(mkv_path)}"
+  TXT
+
+  if File.exists?(mkv_path.gsub(".mkv", ".mp4"))
+    run_cmd <<-TXT
+      rm "#{mkv_convert_path}"
+    TXT
+  end
+end
+
+
