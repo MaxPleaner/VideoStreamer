@@ -17,6 +17,8 @@ p style="color: green" = notice
         p
           a href=films_path(director: @film.director) = @film.director
           span = " (#{@film.year})"
+        p
+          a href=letterboxd_link(@film.name) (View On Letterboxd)
     p.description = @film.description
 
     - if @film.tags.none?

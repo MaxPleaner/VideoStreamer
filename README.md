@@ -27,3 +27,23 @@ Back up your movies to the cloud, share them with friends (stream in the browser
 8. Click the "unsynced films" tab in the navbar and go through your films, importing each. Metadata can be auto-loaded from Movie DB. If there is no match, you can use "force upload" and then go to the "edit film" page (link at the bottom of the film page) and add the details there. 
 9. You can deploy to Heroku same as any Rails app.
  
+
+## A note about formats.
+
+Not all formats of video can be streamed in the browser.
+
+Supported formats (with their associated `content-type`) are as follows:
+
+```
+{
+  ".webm" => "video/webm",
+  ".mp4" => "video/mp4",
+  ".mpeg" => "video/mpeg",
+  ".mpg" => "video/mpeg",
+  ".ogg" => "video/ogg",
+}
+  ```
+
+Similarly, regular `.srt` (and `.sub`) files cannot be used in the browser. Only `.vtt` is supported, as far as I'm aware.
+
+Because of these restrictions, there is a `bin/convert_all` script which will do bulk conversion of video and subtitle files. Feel free to take a look, it's fairly simple and just uses `ffmpeg` under the hood.
