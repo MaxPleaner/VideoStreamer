@@ -3,7 +3,7 @@ class FilmsController < ApplicationController
   before_action :admin_only, only: %i[update edit destroy destroy_recommendation]
 
   def subtitle_file
-    binding.pry
+    # binding.pry
     render plain: Gcs.read_file(params[:name]), content_type: "TextTrack"
   end
 

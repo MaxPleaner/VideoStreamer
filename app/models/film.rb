@@ -59,7 +59,7 @@ class Film < ApplicationRecord
 			".ogg" => "video/ogg",
 		}
 		unsupported_video_formats = %w[.avi .mkv]
-		subtitle_formats = %w[.srt .sub]
+		subtitle_formats = %w[.srt .sub .vtt]
 
 		files_by_extname = get_files.group_by { |file| File.extname(file.name) }
 
