@@ -1,8 +1,13 @@
 #!/usr/bin/env ruby
 
-EXTENSIONS = ["avi", "mkv"]
+CONVERSIONS = {
+  "avi" => "mp4",
+  "mkv" => "mp4",
+  "sub" => "vtt",
+  "srt" => "vtt"
+}
 
-MOVIES_DIR = "/media/max/media/Movies/ALL"
+SRC_DIR = "/media/max/media/Movies/ALL"
 CONVERT_DIR = File.expand_path("~/Videos/Convert")
 
 def run_cmd(cmd)
@@ -12,9 +17,9 @@ end
 
 `mkdir #{CONVERT_DIR}` unless File.directory?(CONVERT_DIR)
 
-EXTENSIONS.each do |extension|
-  to_convert = Dir.glob("#{MOVIES_DIR}/**/*.#{extension}")
-  puts "WILL CONVERT: \n#{to_convert.join("\n")}"
+CONVERSIONS.each do |src_ext, dest_ext|
+  to_convert = Dir.glob("#{SRC_DIR}/**/*.#{src_ext}")
+  puts "EXT: #{src_ext} => #{dest_ext}: WILL CONVERT: \n#{to_convert.join("\n")}" 
 
   to_convert.each.with_index do |orig_path, idx|
     filename = File.basename(orig_path)
@@ -24,16 +29,16 @@ EXTENSIONS.each do |extension|
       mv "#{orig_path}" "#{tmp_convert_path}"
     TXT
 
-    mp4_convert_path = "#{tmp_convert_path.gsub(".#{extension}", ".mp4")}"
+    dest_convert_path = "#{tmp_convert_path.gsub(".#{src_ext}", ".#{dest_ext}")}"
     run_cmd <<-TXT
-      ffmpeg -i "#{tmp_convert_path}" "#{mp4_convert_path}"
+      ffmpeg -i "#{tmp_convert_path}" "#{dest_convert_path}"
     TXT
 
     run_cmd <<-TXT
-      mv "#{mp4_convert_path}" "#{File.dirname(orig_path)}"
+      mv "#{dest_convert_path}" "#{File.dirname(orig_path)}"
     TXT
 
-    if File.exists?(orig_path.gsub(".#{extension}", ".mp4"))
+    if File.exists?(orig_path.gsub(".#{src_ext}", ".#{dest_ext}"))
       run_cmd <<-TXT
         rm "#{tmp_convert_path}"
       TXT
