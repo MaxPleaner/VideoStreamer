@@ -2,6 +2,11 @@ class FilmsController < ApplicationController
   before_action :set_film, only: %i[ show edit update destroy watch]
   before_action :admin_only, only: %i[update edit destroy destroy_recommendation]
 
+  def subtitle_file
+    binding.pry
+    render plain: Gcs.read_file(params[:name]), content_type: "TextTrack"
+  end
+
   # GET /films or /films.json
   def index
     @all_directors = Film.distinct(:director).pluck(:director).compact.sort

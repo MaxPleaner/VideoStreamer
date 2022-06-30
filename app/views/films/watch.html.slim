@@ -23,7 +23,7 @@ br
 	
 	video#video-player type=type src=src controls='true'
 		- @subs.each do |sub_file|
-			track label=sub_file.name kind='subtitles' src=Gcs.signed_url(sub_file) srclang='en'
+			track label=sub_file.name kind='subtitles' src=film_subtitle_file_path(name: sub_file.name) srclang='en'
 
 / .hidden#sub_files
 /   = (@subtitles || []).to_json

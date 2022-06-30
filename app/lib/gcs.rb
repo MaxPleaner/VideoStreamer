@@ -34,6 +34,10 @@ class Gcs
 		BUCKET.files(prefix: prefix)
 	end
 
+	def self.read_file(name)
+		BUCKET.file(name).download.read
+	end
+
 	def self.download_index_file
 		JSON.parse(BUCKET.file(INDEX_FILE_NAME).download.read)
 	end

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root "films#index"
 
+  get "films/subtitle_file", to: "films#subtitle_file", as: :film_subtitle_file
   get "films/recommendation", to: "films#new_recommendation", as: :film_recommendation
   post "films/recommendation", to: "films#submit_recommendation", as: :submit_film_recommendation
   get '/recommendations', to: "films#show_recommendations", as: :recommendations
