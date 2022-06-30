@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["https://dissonance-film.herokuapp.com"],
+    "responseHeader": ["Content-Type"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]
