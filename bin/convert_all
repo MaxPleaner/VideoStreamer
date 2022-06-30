@@ -1,38 +1,39 @@
 #!/usr/bin/env ruby
 
+EXTENSION = "avi"
+MOVIES_DIR = "/media/max/media/Movies/ALL"
+CONVERT_DIR = File.expand_path("~/Videos/Convert")
+
 def run_cmd(cmd)
   puts cmd
   `#{cmd}`
 end
 
-movies_dir = "/media/max/media/Movies/ALL"
-convert_dir = File.expand_path("~/Videos/Convert")
+`mkdir #{CONVERT_DIR}` unless File.directory?(CONVERT_DIR)
 
-`mkdir #{convert_dir}` unless File.directory?(convert_dir)
+to_convert = Dir.glob("#{MOVIES_DIR}/**/*.#{EXTENSION}")
+puts "WILL CONVERT: \n#{to_convert.join("\n")}"
 
-mkvs = Dir.glob("#{movies_dir}/**/*.mkv")
-puts "WILL CONVERT: \n#{mkvs.join("\n")}"
+to_convert.each.with_index do |orig_path, idx|
+  filename = File.basename(orig_path)
 
-mkvs.each.with_index do |mkv_path, idx|
-  filename = File.basename(mkv_path)
-
-  mkv_convert_path = "#{convert_dir}/#{filename}"
+  tmp_convert_path = "#{CONVERT_DIR}/#{filename}"
   run_cmd <<-TXT
-    mv "#{mkv_path}" "#{mkv_convert_path}"
+    mv "#{orig_path}" "#{tmp_convert_path}"
   TXT
 
-  mp4_convert_path = "#{mkv_convert_path.gsub(".mkv", ".mp4")}"
+  mp4_convert_path = "#{tmp_convert_path.gsub(".#{EXTENSION}", ".mp4")}"
   run_cmd <<-TXT
-    ffmpeg -i "#{mkv_convert_path}" "#{mp4_convert_path}"
+    ffmpeg -i "#{tmp_convert_path}" "#{mp4_convert_path}"
   TXT
 
   run_cmd <<-TXT
-    mv "#{mp4_convert_path}" "#{File.dirname(mkv_path)}"
+    mv "#{mp4_convert_path}" "#{File.dirname(orig_path)}"
   TXT
 
-  if File.exists?(mkv_path.gsub(".mkv", ".mp4"))
+  if File.exists?(orig_path.gsub(".#{EXTENSION}", ".mp4"))
     run_cmd <<-TXT
-      rm "#{mkv_convert_path}"
+      rm "#{tmp_convert_path}"
     TXT
   end
 end

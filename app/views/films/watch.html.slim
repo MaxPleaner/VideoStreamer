@@ -17,7 +17,6 @@ br
 	- if @vids.values.flatten.length == 1
 		- type = @vids.keys.first
 		- src = Gcs.signed_url(@vids.values.flatten.first)
-		video#video-player type=@vids.keys.first src=Gcs.signed_url(@vids.values.flatten.first) controls='true'
 	- if @selected_video
 		- type = @selected_video[:media_type]
 		- src = Gcs.signed_url(@selected_video[:file])
