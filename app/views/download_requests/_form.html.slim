@@ -1,0 +1,22 @@
+= form_with(model: @download_request) do |form|
+  - if @download_request.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(@download_request.errors.count, "error")} prohibited this download_request from being saved:"
+      ul
+        - @download_request.errors.each do |error|
+          li = error.full_message
+
+  div
+    = form.label :name, style: "display: block"
+    = form.text_field :name
+
+  div
+    = form.label :url, style: "display: block"
+    = form.text_area :url
+
+  div
+    = form.label :status, style: "display: block"
+    = form.text_field :status
+
+  div
+    = form.submit

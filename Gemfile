@@ -18,6 +18,7 @@ gem 'rest-client'
 gem 'dotenv'
 gem 'slim-rails'
 gem 'google-cloud-storage'
+gem 'google-cloud-pubsub'
 
 # =====================================
 # DEFAULT GEMS

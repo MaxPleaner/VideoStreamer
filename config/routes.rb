@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :download_requests
   root "films#index"
 
   get "films/subtitle_file", to: "films#subtitle_file", as: :film_subtitle_file

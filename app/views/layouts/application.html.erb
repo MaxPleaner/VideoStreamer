@@ -20,8 +20,9 @@
 
   <body>
     <% if admin? %>
-      <a class='admin-nav-link' href='<%= unsynced_films_path%>'> unsynced films </a>
+      <a class='admin-nav-link' href='<%= unsynced_films_path%>'> Unsynced Films </a>
       <a class='admin-nav-link' href='<%= films_path%>'> Films </a>
+      <a class='admin-nav-link' href='<%= download_requests_path%>'> Download Requests </a>
       <% if Recommendation.count > 0 %>
         <a class='admin-nav-link' href='<%= recommendations_path%>'> <%= Recommendation.count %> recommendation(s) </a>    
       <% end %>

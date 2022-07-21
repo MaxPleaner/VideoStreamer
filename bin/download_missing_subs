@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require 'pry'
+SRC_DIR = "/media/max/media/Movies/ALL"
+CONVERT_DIR = File.expand_path("~/Videos/Convert")
+
+# Download missing subs
+folders = Dir.glob("#{SRC_DIR}/*").select do |folder|
+  subs = Dir.glob("#{folder}/**/*.vtt")
+  subs.none?
+end
+
+folders.each do |folder|
+  movies = Dir.glob("#{folder}/**/*.mp4")
+  binding.pry
+end

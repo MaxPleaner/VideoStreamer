@@ -1,0 +1,10 @@
+h1 Editing download request
+
+== render "form", download_request: @download_request
+
+br
+
+div
+  => link_to "Show this download request", @download_request
+  '|
+  =< link_to "Back to download requests", download_requests_path

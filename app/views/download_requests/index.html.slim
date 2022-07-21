@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Download requests
+
+#download_requests
+  - @download_requests.each do |download_request|
+    == render download_request
+    p
+      = link_to "Show this download request", download_request
+
+= link_to "New download request", new_download_request_path

@@ -1,0 +1,10 @@
+p style="color: green" = notice
+
+== render @download_request
+
+div
+  => link_to "Edit this download request", edit_download_request_path(@download_request)
+  '|
+  =< link_to "Back to download requests", download_requests_path
+
+  = button_to "Destroy this download request", @download_request, method: :delete

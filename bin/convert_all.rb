@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 
+require 'pry'
+
 CONVERSIONS = {
   "avi" => "mp4",
   "mkv" => "mp4",
-  "sub" => "vtt",
   "srt" => "vtt"
 }
 
@@ -31,8 +32,22 @@ CONVERSIONS.each do |src_ext, dest_ext|
 
     dest_convert_path = "#{tmp_convert_path.gsub(".#{src_ext}", ".#{dest_ext}")}"
     run_cmd <<-TXT
-      ffmpeg -i "#{tmp_convert_path}" "#{dest_convert_path}"
+      ffmpeg -i "#{tmp_convert_path}" -vcodec libx264 "#{dest_convert_path}"
     TXT
+
+    # extract subs from mkb
+    if src_ext == "mkv"
+      sub_path = tmp_convert_path.gsub(".#{src_ext}", ".srt")
+      run_cmd <<-TXT
+        ffmpeg -i "#{tmp_convert_path}" -map 0:s:0 "#{sub_path}"
+      TXT
+      run_cmd <<-TXT
+        mv "#{sub_path}" "#{File.dirname(orig_path)}"
+      TXT
+      run_cmd <<-TXT
+        rm "#{sub_path}"
+      TXT
+    end
 
     run_cmd <<-TXT
       mv "#{dest_convert_path}" "#{File.dirname(orig_path)}"
@@ -45,4 +60,3 @@ CONVERSIONS.each do |src_ext, dest_ext|
     end
   end
 end
-
