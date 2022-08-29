@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+NICE_PRIORITY = 10
+# CPU_LIMIT = 50
+
 CONVERSIONS = {
   "avi" => "mp4",
   "mkv" => "mp4",
@@ -30,8 +33,10 @@ CONVERSIONS.each do |src_ext, dest_ext|
     TXT
 
     dest_convert_path = "#{tmp_convert_path.gsub(".#{src_ext}", ".#{dest_ext}")}"
+    # Note: this is REALLY processor intensive.
+    # Uses `nice` and `cpulimit` to prevent performance degredation.
     run_cmd <<-TXT
-      ffmpeg -i "#{tmp_convert_path}" "#{dest_convert_path}"
+      nice -n #{NICE_PRIORITY} ffmpeg -i "#{tmp_convert_path}" "#{dest_convert_path}"
     TXT
 
     run_cmd <<-TXT
