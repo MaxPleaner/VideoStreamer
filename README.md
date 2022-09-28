@@ -14,7 +14,7 @@ There are two supported methods of storage. Google Cloud Storage or local filesy
   - **Movie DB**:
     - `MOVIE_DB_API_KEY`
   - **Uploading Files**:
-    - `FILMS_DIR`: The local folder name where your movies are stord, e.g. /home/max/Movies
+    - `FILMS_DIR`: The local folder name where your movies are stored, e.g. /home/max/Movies. If you're serving files from GCS, this is only used in the sync/upload script. Otherwise, this is the location where files are actually served from.
   - **Authentication** - there are 2 accounts, admin and regular user. Dynamic account creation is not supported.
     - `ADMIN_NAME`
     - `ADMIN_PASSWORD`
