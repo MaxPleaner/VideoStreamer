@@ -1,0 +1,221 @@
+<style>
+body, html {
+    margin: none;
+    padding: none;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+a {
+    color: lightgreen;
+}
+
+a:hover {
+    color: orange;
+}
+
+.admin-nav-link {
+    display: inline-block;
+    margin: 5px;
+}
+
+#index-filters {
+    outline: 1px solid white;
+    padding: 5px;
+    margin: 5px;
+}
+
+.index-filter {
+    background-color: SaddleBrown;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.filter-title {
+    padding: 0 5px;
+    display: inline-block;
+}
+
+.recommendation-link {
+    /*float: right;*/
+    font-style: italic;
+    background-color: darkgreen;
+    color: yellow;
+    padding: 2px 5px;
+    margin: 5px;
+    display: inline-block;
+}
+
+.info-link {
+    /*float: right;*/
+    font-style: italic;
+    background-color: darkgreen;
+    color: yellow;
+    padding: 2px 5px;
+    margin: 5px;
+    display: inline-block;
+}
+
+.box {
+    border: 1px solid white;
+}
+
+.tags, .files, .description-tags, .admin-links, .comments {
+    outline: 1px solid white;
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    width: 300px;
+    height: 400px;
+    float: left; 
+    box-sizing: border-box;   
+}
+
+.watch-link {
+    display: inline-block;
+}
+
+.comments, .admin-links {
+    width: 890px;
+    height: auto;
+    padding: 10px;
+}
+
+.description-tags {
+    width: 600px;
+    height: 400px;
+    /*display: inline-block;*/
+    /*width: 600px;*/
+}
+
+.clearfix {
+    clear: both:
+}
+
+.files {
+    /*margin-top: 10px;*/
+    width: 890px;
+    height: auto;
+}
+
+@media only screen and (max-width: 890px) {
+    .files, .description-tags, .comments, .admin-links {
+        width: 100%;
+    }
+}
+
+h3 {
+    text-decoration: underline;
+}
+
+.link-box:hover {
+    border: 1px solid gold;
+}   
+
+#video-player {
+    width: 90vw;
+    height: 90vh;
+} 
+
+.hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.film-show {
+    /*display: inline-block;*/
+    /*float: left;*/
+    /*display: flex;*/
+}
+
+.film-show .description, .film-show .film-title-bar {
+    border-bottom: 1px solid white;
+    padding-bottom: 10px;
+}
+
+/*.film-show .description {
+    padding-bottom: 10px;
+    border-bottom: 1px solid white;
+}*/
+
+.film-box {
+    float: left;
+    margin: 5px;
+    padding: 0px;
+    display: inline-block;
+    width: 280px;
+    height: 400px;
+    outline: 1px solid white;
+    background-size: 300px !important;
+    background-repeat: no-repeat !important;
+    position: relative;
+}   
+
+.film-box .link-placeholder {
+    /*background-color: red;*/
+    display: inline-block;
+    width: 280px;
+    height: 400px;
+}
+
+.film-box .link-placeholder:hover {
+    cursor: pointer;
+    outline: 5px solid orange;
+}
+
+.film-box .film-title-bar {
+    position: absolute;
+    bottom: 0;
+    border-top: 2px solid white;
+}
+
+.film-title-bar {
+    background-color: black;
+    color: white;
+    width: 100%;
+    padding: 0px;
+}
+
+.film-title-bar .content p {
+    margin: 2px 0 !important;
+    padding: none;
+}
+
+.film-title-bar .content {
+    padding: 3px;
+}
+
+.film-title-bar .poster-img {
+    width: 100%;
+}
+
+.film-title-bar .film-name {
+    font-weight: bold;
+}
+
+.tag {
+    border: 1px solid lightgreen;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.tag:hover {
+    border: 1px solid orange;
+    color: orange;
+}
+
+.film-title-bar a, .film-title-bar a:visited{
+    color: lightgreen;
+    text-decoration: none;
+}
+
+.film-title-bar a:hover {
+    color: orange;
+}
+</style>

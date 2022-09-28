@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.0"
+ruby "3.1.2"
 
 # =====================================
 # CUSTOM GEMS
@@ -11,8 +11,7 @@ group :development do
   gem "annotate"
   gem 'pry-byebug'
 end
-
-gem 'mini_racer'
+# gem 'mini_racer'
 gem 'coffee-rails'
 gem 'rest-client'
 gem 'dotenv'
