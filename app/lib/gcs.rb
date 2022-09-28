@@ -1,3 +1,8 @@
+# ===================================================
+# This class follows the public API defined in Storage.
+# Any new methods here should be added to Storage and Filesystem as well.
+# ===================================================
+
 require 'google/cloud/storage'
 
 class Gcs

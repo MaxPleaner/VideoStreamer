@@ -4,7 +4,7 @@ class FilmsController < ApplicationController
 
   def subtitle_file
     # binding.pry
-    render plain: Gcs.read_file(params[:name]), content_type: "TextTrack"
+    render plain: Storage.read_file(params[:name]), content_type: "TextTrack"
   end
 
   # GET /films or /films.json

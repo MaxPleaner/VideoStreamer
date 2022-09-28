@@ -2,16 +2,15 @@
 
 Back up your movies to the cloud, share them with friends (stream in the browser), add tags, comments, auto-load metadata, and so on.
 
+## Storage
+
+There are two supported methods of storage. Google Cloud Storage or local filesystem. Filesystem is the default (i.e. for self-hosting) but configuration for both setups is detailed below:
+
 ## Instructions
 
 1. download the repo, run `bundle install`.
-2. create a GCS project and bucket. You do _not_ need to provide public access to the files (the Rails server will provide the clients with signed URLs). Download the credentials as JSON keyfile.
 3. Create a Movie DB developer account and get the API key
-4. copy `.env.example` to `.env` and fill in the required credentials:
-  - **GCS**:
-    - `GCS_PROJECT_ID`: The name of the GCS project
-    - `GCS_BUCKET_NAME`
-    - `GCS_CREDENTIALS`: The content of the credentials file (not the path)
+3. copy `.env.example` to `.env` and fill in the required credentials:
   - **Movie DB**:
     - `MOVIE_DB_API_KEY`
   - **Uploading Files**:
@@ -25,7 +24,15 @@ Back up your movies to the cloud, share them with friends (stream in the browser
 6. Run `rake films:upload` to sync your local film collection with GCS (and create an index file)
 7. Run `rails server` and open localhost:3000. Log in with the admin credentials you set up.
 8. Click the "unsynced films" tab in the navbar and go through your films, importing each. Metadata can be auto-loaded from Movie DB. If there is no match, you can use "force upload" and then go to the "edit film" page (link at the bottom of the film page) and add the details there. 
-9. You can deploy to Heroku same as any Rails app.
+
+### If you want to use GCS
+
+2. create a GCS project and bucket. You do _not_ need to provide public access to the files (the Rails server will provide the clients with signed URLs). Download the credentials as JSON keyfile.
+4. Add the following additional environment variables
+  - `USE_GCS=true`
+  - `GCS_PROJECT_ID`: The name of the GCS project
+  - `GCS_BUCKET_NAME`
+  - `GCS_CREDENTIALS`: The content of the credentials file (not the path)
  
 
 ## A note about formats.

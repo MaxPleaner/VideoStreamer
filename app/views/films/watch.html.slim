@@ -18,10 +18,10 @@ br
 - else
 	- if @vids.values.flatten.length == 1
 		- type = @vids.keys.first
-		- src = Gcs.signed_url(@vids.values.flatten.first)
+		- src = Storage.signed_url(@vids.values.flatten.first)
 	- if @selected_video
 		- type = @selected_video[:media_type]
-		- src = Gcs.signed_url(@selected_video[:file])
+		- src = Storage.signed_url(@selected_video[:file])
 	
 	video#video-player type=type src=src controls='true'
 		- @subs.each do |sub_file|
