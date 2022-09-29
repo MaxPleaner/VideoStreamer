@@ -17,7 +17,7 @@ class Film < ApplicationRecord
 	has_many :comments, dependent: :destroy
 
 	def self.unsynced_film_names
-		Gcs.download_index_file.reject do |film_name|
+		Storage.download_index_file.reject do |film_name|
 			Film.exists?(name: film_name)
 		end
 	end
@@ -42,11 +42,11 @@ class Film < ApplicationRecord
 	 		size_mb = files.sum { |file| file.size / 1_000_000.0 }
 	 		update(size: size_mb)
  		end
- 		super		
+ 		super
 	end
 
 	def get_files
-		Gcs.get_files_in_folder(self.name)
+		Storage.get_files_in_folder(self.name)
 	end
 	alias files get_files
 

@@ -53,21 +53,21 @@ p style="color: green" = notice
           - @files[:video].each do |ext, files|
             - files.each do |file|
               li
-                a href=Gcs.signed_url(file) = file.name
+                a href=Storage.signed_url(file) = file.name
 
       - if @files[:unsupported_video].any?
         h4 Video (must be downloaded)
         ul
           - @files[:unsupported_video].each do |file|
             li
-              a href=Gcs.signed_url(file) = file.name
+              a href=Storage.signed_url(file) = file.name
 
       - if @files[:subtitle].any?
         h4 Subtitle
         ul
           - @files[:subtitle].each do |file|
             li
-              a href=Gcs.signed_url(file) = file.name
+              a href=Storage.signed_url(file) = file.name
       - else
         h4 Subtitles: none
 

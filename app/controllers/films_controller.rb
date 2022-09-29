@@ -3,8 +3,19 @@ class FilmsController < ApplicationController
   before_action :admin_only, only: %i[update edit destroy destroy_recommendation]
 
   def subtitle_file
-    # binding.pry
-    render plain: Gcs.read_file(params[:name]), content_type: "TextTrack"
+    send_file Storage.local_file_path(params[:name]), type: "TextTrack"
+  rescue => e
+    if e.message == "file not accessible"
+      head 404
+    end
+  end
+
+  def video_file
+    send_file Storage.local_file_path(params[:name])
+  rescue => e
+    if e.message == "file not accessible"
+      head 404
+    end
   end
 
   # GET /films or /films.json
@@ -27,11 +38,11 @@ class FilmsController < ApplicationController
 
     @opts[:sort] = params[:sort]
     if params[:sort] == "date_asc"
-      @films = @films.order(year: :asc) 
+      @films = @films.order(year: :asc)
     elsif params[:sort] == "date_desc"
       @films = @films.order(year: :desc)
     elsif params[:sort] == "size"
-      @films = @films.order(size: :desc)     
+      @films = @films.order(size: :desc)
     elsif params[:sort] == "name"
       @films = @films.order(name: :asc)
     elsif params[:sort] == "newly_uploaded" || params[:sort].blank?

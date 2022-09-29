@@ -1,16 +1,16 @@
 class ApplicationController < ActionController::Base
-	# USERS = {
-	# 	admin: {
-	# 		name: ENV.fetch("ADMIN_NAME"),
-	# 		password: ENV.fetch("ADMIN_PASSWORD"),
-	# 	},
-	# 	user: {
-	# 		name: ENV.fetch("USER_NAME"),
-	# 		password: ENV.fetch("USER_PASSWORD"),
-	# 	}
-	# }
+	USERS = {
+		admin: {
+			name: ENV.fetch("ADMIN_NAME"),
+			password: ENV.fetch("ADMIN_PASSWORD"),
+		},
+		user: {
+			name: ENV.fetch("USER_NAME"),
+			password: ENV.fetch("USER_PASSWORD"),
+		}
+	}
 
-	# before_action :authenticate
+	before_action :authenticate
 
 	helper_method :admin?
 	def admin?

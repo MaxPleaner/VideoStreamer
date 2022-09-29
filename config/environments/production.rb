@@ -1,6 +1,17 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+
+
+  # ========================================================================
+  # CUSTOM
+  #
+  # see https://apidock.com/rails/ActionController/Streaming/send_file
+  # maybe makes things faster?
+  # used by nginx
+  ActionController::Streaming::X_SENDFILE_HEADER = 'X-Accel-Redirect'
+  # ========================================================================
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
