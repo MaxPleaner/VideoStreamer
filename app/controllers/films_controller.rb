@@ -7,6 +7,8 @@ class FilmsController < ApplicationController
   rescue => e
     if e.message == "file not accessible"
       head 404
+    else
+      raise
     end
   end
 
@@ -15,6 +17,8 @@ class FilmsController < ApplicationController
   rescue => e
     if e.message == "file not accessible"
       head 404
+    else
+      raise
     end
   end
 

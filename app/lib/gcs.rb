@@ -41,7 +41,7 @@ class Gcs
 		BUCKET.files(prefix: prefix)
 	end
 
-	def local_file_path(name)
+	def self.local_file_path(name)
 		temp = Tempfile.new
 
 		temp.write(read_file(name))
