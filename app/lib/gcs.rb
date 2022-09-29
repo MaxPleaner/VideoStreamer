@@ -41,11 +41,21 @@ class Gcs
 		BUCKET.files(prefix: prefix)
 	end
 
-	def self.read_file(name)
-		BUCKET.file(name).download.read
+	def local_file_path(name)
+		temp = Tempfile.new
+
+		temp.write(read_file(name))
+		temp.tap(&:close).path
 	end
 
 	def self.download_index_file
-		JSON.parse(BUCKET.file(INDEX_FILE_NAME).download.read)
+		JSON.parse(read_file(INDEX_FILE_NAME))
+	end
+
+	class << self
+		private
+		def read_file(name)
+			BUCKET.file(name).download.read
+		end
 	end
 end

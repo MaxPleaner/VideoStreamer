@@ -12,7 +12,7 @@ class Storage
       signed_url
       sync_folder
       get_files_in_folder
-      read_file
+      local_file_path
       download_index_file
     ].each { |fn| delegate fn, to: Adapter }
   end

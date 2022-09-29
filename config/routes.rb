@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get "/films", to: "films#index"
 
   scope "films" do
+    get "video_file", to: "films#video_file", as: :film_video_file
+
     get "films/subtitle_file", to: "films#subtitle_file", as: :film_subtitle_file
     get "films/recommendation", to: "films#new_recommendation", as: :film_recommendation
     post "films/recommendation", to: "films#submit_recommendation", as: :submit_film_recommendation

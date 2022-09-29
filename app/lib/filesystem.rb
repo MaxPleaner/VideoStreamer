@@ -7,12 +7,13 @@
 # doesn't always exactly match their names.
 # ===================================================
 
+require 'tempfile'
+
 class Filesystem
   FILMS_DIR = ENV["FILMS_DIR"]
 
   def self.signed_url(file)
-    # binding.pry
-    "#"
+    "/films/video_file?name=#{CGI.escape(file.name)}"
   end
 
   # In this case, we don't actually have to upload anything,
@@ -30,8 +31,8 @@ class Filesystem
       end
   end
 
-  def self.read_file(name)
-    File.read(File.join(FILMS_DIR, sanitize(name)))
+  def self.local_file_path(name)
+    File.join(FILMS_DIR, sanitize(name))
   end
 
   # This really just returns a list of film names
@@ -43,7 +44,13 @@ class Filesystem
 
   class << self
     def sanitize(path)
-      path.gsub("..", "")
+      path = File.join(FILMS_DIR, path.gsub(FILMS_DIR, ""))
+
+      unless File.exists?(path) && File.realpath(path).start_with?(FILMS_DIR)
+        raise "file not accessible"
+      end
+
+      File.realpath(path).gsub(FILMS_DIR, "")
     end
   end
 end
