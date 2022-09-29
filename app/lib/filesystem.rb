@@ -11,19 +11,27 @@ class Filesystem
   FILMS_DIR = ENV["FILMS_DIR"]
 
   def self.signed_url(file)
+    # binding.pry
+    "#"
   end
 
   # In this case, we don't actually have to upload anything,
   # And the index file can be built dynamically, so this is a no-op
-  def self.sync_folder(local_folder)
-  end
+  def self.sync_folder(local_folder); end
 
   def self.get_files_in_folder(prefix)
-    Dir.glob("#{File.join(FILMS_DIR, prefix)}/**/*").to_a
+    Dir.glob("#{File.join(FILMS_DIR, sanitize(prefix))}/**/*").to_a.
+      reject { |path| File.directory?(path) }.
+      map do |name|
+        OpenStruct.new(
+          name: name,
+          size: File.size(name)
+        )
+      end
   end
 
   def self.read_file(name)
-    File.read(File.join(FILMS_DIR, name))
+    File.read(File.join(FILMS_DIR, sanitize(name)))
   end
 
   # This really just returns a list of film names
@@ -31,5 +39,11 @@ class Filesystem
     Dir.glob("#{FILMS_DIR}/*").
       select { |path| File.directory?(path) }.
       map { |path| File.basename(path) }
+  end
+
+  class << self
+    def sanitize(path)
+      path.gsub("..", "")
+    end
   end
 end

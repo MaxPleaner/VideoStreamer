@@ -6,13 +6,15 @@
 require 'google/cloud/storage'
 
 class Gcs
-	STORAGE = Google::Cloud::Storage.new(
-	  project_id: ENV.fetch("GCS_PROJECT_ID"),
-	  credentials: JSON.parse(ENV.fetch("GCS_CREDENTIALS"))
-	)
+	if ENV["USE_GCS"]&.downcase == "true"
+		STORAGE = Google::Cloud::Storage.new(
+		  project_id: ENV.fetch("GCS_PROJECT_ID"),
+		  credentials: JSON.parse(ENV.fetch("GCS_CREDENTIALS"))
+		)
 
-	BUCKET = STORAGE.bucket(ENV.fetch("GCS_BUCKET_NAME"))
-	INDEX_FILE_NAME = "0_index.json"
+		BUCKET = STORAGE.bucket(ENV.fetch("GCS_BUCKET_NAME"))
+		INDEX_FILE_NAME = "0_index.json"
+	end
 
 	def self.signed_url(file)
 		file.signed_url(expires: 604800)
