@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/home/max/.rbenv/shims/ruby
 
 NICE_PRIORITY = 10
 # CPU_LIMIT = 50
@@ -10,15 +10,17 @@ CONVERSIONS = {
   "srt" => "vtt"
 }
 
-SRC_DIR = "/media/max/media/Movies/ALL"
-CONVERT_DIR = File.expand_path("~/Videos/Convert")
+#SRC_DIR = "/media/max/media/Movies/ALL"
+# CONVERT_DIR = File.expand_path("~/Videos/Convert")
+
+SRC_DIR = "/mnt/share/Movies"
 
 def run_cmd(cmd)
   puts cmd
   `#{cmd}`
 end
 
-`mkdir #{CONVERT_DIR}` unless File.directory?(CONVERT_DIR)
+# `mkdir #{CONVERT_DIR}` unless File.directory?(CONVERT_DIR)
 
 CONVERSIONS.each do |src_ext, dest_ext|
   to_convert = Dir.glob("#{SRC_DIR}/**/*.#{src_ext}")
@@ -27,25 +29,25 @@ CONVERSIONS.each do |src_ext, dest_ext|
   to_convert.each.with_index do |orig_path, idx|
     filename = File.basename(orig_path)
 
-    tmp_convert_path = "#{CONVERT_DIR}/#{filename}"
-    run_cmd <<-TXT
-      mv "#{orig_path}" "#{tmp_convert_path}"
-    TXT
+ #   tmp_convert_path = "#{CONVERT_DIR}/#{filename}"
+ #   run_cmd <<-TXT
+ #     mv "#{orig_path}" "#{tmp_convert_path}"
+ #   TXT
 
-    dest_convert_path = "#{tmp_convert_path.gsub(".#{src_ext}", ".#{dest_ext}")}"
+    dest_convert_path = "#{orig_path.gsub(".#{src_ext}", ".#{dest_ext}")}"
     # Note: this is REALLY processor intensive.
     # Uses `nice` and `cpulimit` to prevent performance degredation.
     run_cmd <<-TXT
-      nice -n #{NICE_PRIORITY} ffmpeg -i "#{tmp_convert_path}" "#{dest_convert_path}"
+      nice -n #{NICE_PRIORITY} ffmpeg -i "#{orig_path}" "#{dest_convert_path}"
     TXT
 
-    run_cmd <<-TXT
-      mv "#{dest_convert_path}" "#{File.dirname(orig_path)}"
-    TXT
+#    run_cmd <<-TXT
+#      mv "#{dest_convert_path}" "#{File.dirname(orig_path)}"
+#    TXT
 
     if File.exists?(orig_path.gsub(".#{src_ext}", ".#{dest_ext}"))
       run_cmd <<-TXT
-        rm "#{tmp_convert_path}"
+        rm "#{orig_path}"
       TXT
     end
   end

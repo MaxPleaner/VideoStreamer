@@ -23,8 +23,9 @@ class Film < ApplicationRecord
 	end
 
 	def self.create_from_movie_db_lookup(folder_name, movie_db_results)
+                `sudo sh /home/max/Desktop/VideoStreamer/scripts/rename_files.sh`
 		film = Film.create!(
-			name: folder_name,
+			name: folder_name.gsub(" ", "_"),
 			description: movie_db_results[:details],
 			year: DateTime.parse(movie_db_results[:date]).year,
 			director: movie_db_results[:director],
