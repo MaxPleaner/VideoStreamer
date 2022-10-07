@@ -1,0 +1,30 @@
+form_tag "#", multipart: true, id: :fileupload do
+  label_tag 'File:'
+  file_field_tag :upload
+  submit_tag 'Upload'
+
+div#progress-bar
+  #progress
+
+javascript:
+  var files = [];
+  $('#fileupload').fileupload({
+    dataType: 'json',
+    url: '/chunk_upload',
+    maxChunkSize: 1000000,
+    add: function(e, data) {
+      $.each(data.files, function(index, file) {
+        #$.ajax({
+        #  method: 'post',
+        #  dataType: 'json',
+        #  url: '/uploads',
+        #  data: { filename: file.name },
+        #  success: function(res) {
+        #    data.formData = res;
+        #    files.push(data);
+        #  }
+        # 	
+});
+      });
+    },
+  });

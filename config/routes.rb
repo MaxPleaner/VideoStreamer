@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     get '/recommendations', to: "films#show_recommendations", as: :recommendations
     post '/recommendation/:id/destroy', to: "films#destroy_recommendation", as: :destroy_recommendation
 
+    get "films/upload", to: "films#upload", as: :upload_film
+    post "films/chunk_create", to: "films#chunk_create", as: :chunk_create
+
     resources :films, except: [:new, :create]
     resources :unsynced_films, only: [:index]
 

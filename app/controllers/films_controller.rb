@@ -2,6 +2,42 @@ class FilmsController < ApplicationController
   before_action :set_film, only: %i[ show edit update destroy watch]
   before_action :admin_only, only: %i[update edit destroy destroy_recommendation]
 
+  def upload
+  end
+
+  def chunk_create
+    file = params[:upload]
+    dir = "/mnt/share/upload/#{Time.now.to_i}"
+    FileUtils.mkdir_p(dir)
+    name = params[:filename].tr("/", "_")
+    path = File.join(dir, name)
+    File.open(path, "ab") { |f| f.write(file.read) }
+    head :ok
+    
+  end
+
+ # def perform_upload
+ #   filename = params[:filename]
+ #   uuid = SecureRandom.uuid
+ #   ext  = File.extname(filename)
+ #   dir  = "/mnt/share/upload/#{Time.now.to_i}"
+ #   FileUtils.mkdir_p(dir) unless File.exist?(dir)
+
+#    @upload = Upload.new(
+#      filename: filename,
+#      path: File.join(dir, "#{filename.tr("/.", "_"}.#{ext.tr("/.", "_")}")
+#    )
+#
+#
+#    if @upload.save
+#      render json: { id: @upload.id, uploaded_size: @upload.uploaded_size }
+#    else
+#      render json: { error: @upload.errors }
+#    end
+#     flash[:alert] = "started upload"
+#     redirect_to :back 
+#  end
+
   def subtitle_file
     send_file Storage.local_file_path(params[:name]), type: "TextTrack"
   rescue => e
