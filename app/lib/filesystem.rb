@@ -16,11 +16,11 @@ class Filesystem
 
   def self.signed_url(file)
     name = file.name.gsub(FILMS_DIR, "")
-#    secure_link_id = Digest::MD5.hexdigest "#{name}#{SECURE_LINK_SECRET}"
-#     return "/films/video_file?name=#{CGI.escape(name)}"
-#    binding.pry if name.include?(" ")
-#    "/video_streamer_file/#{secure_link_id}/#{CGI.escape(name)}"
-     "/video_streamer_file_authenticated/#{CGI.escape(name)}"
+    secure_link_id = Digest::MD5.hexdigest "#{name}#{SECURE_LINK_SECRET}"
+    url = "/video_streamer_file/#{secure_link_id}/#{name}"
+#    binding.pry
+    return url
+#     "/video_streamer_file_authenticated/#{CGI.escape(name)}"
   end
 
   # In this case, we don't actually have to upload anything,
