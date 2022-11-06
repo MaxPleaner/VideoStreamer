@@ -6,6 +6,10 @@ Back up your movies to the cloud, share them with friends (stream in the browser
 
 There are two supported methods of storage. Google Cloud Storage or local filesystem. Filesystem is the default (i.e. for self-hosting) but configuration for both setups is detailed below:
 
+## NOTE ABOUT GCS STORAGE
+
+If you want to use Gcs storage, you're best to just use the `gcs` branch. I added a bunch of haphazard stuff to the `main` to support filesystem storage / nginx self hosting.
+
 ## Instructions
 
 1. download the repo, run `bundle install`.

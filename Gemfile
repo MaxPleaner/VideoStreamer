@@ -7,10 +7,14 @@ ruby "3.1.2"
 # CUSTOM GEMS
 # =====================================
 
+# gem 'send_file_with_range'
+
+
 group :development do
   gem "annotate"
-  gem 'pry-byebug'
 end
+
+gem 'pry-byebug'
 # gem 'mini_racer'
 gem 'coffee-rails'
 gem 'rest-client'

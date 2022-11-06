@@ -8,12 +8,19 @@
 # ===================================================
 
 require 'tempfile'
+require 'digest' 
 
 class Filesystem
   FILMS_DIR = ENV["FILMS_DIR"]
+  SECURE_LINK_SECRET = ENV["SECURE_LINK_SECRET"]
 
   def self.signed_url(file)
-    "/films/video_file?name=#{CGI.escape(file.name)}"
+    name = file.name.gsub(FILMS_DIR, "")
+    secure_link_id = Digest::MD5.hexdigest "#{name}#{SECURE_LINK_SECRET}"
+    url = "/video_streamer_file/#{secure_link_id}/#{name}"
+#    binding.pry
+    return url
+#     "/video_streamer_file_authenticated/#{CGI.escape(name)}"
   end
 
   # In this case, we don't actually have to upload anything,
@@ -21,9 +28,21 @@ class Filesystem
   def self.sync_folder(local_folder); end
 
   def self.get_files_in_folder(prefix)
-    Dir.glob("#{File.join(FILMS_DIR, sanitize(prefix))}/**/*").to_a.
-      reject { |path| File.directory?(path) }.
-      map do |name|
+    files = Dir.glob("#{File.join(FILMS_DIR, sanitize(prefix))}/**/*").to_a.
+      reject { |path| File.directory?(path) }
+#    files.each do |file|
+#      if file.include?(" ") # doesnt work with nginx
+#        parts = file.split("/")
+#        parts.each.with_index do |part, idx|
+#	  next if part.empty?
+#          next unless part.include?(" ")
+#          path = parts[0..idx].join("/")
+#          binding.pry
+#        end
+#      end
+#    end
+      
+    files.map do |name|
         OpenStruct.new(
           name: name,
           size: File.size(name)
