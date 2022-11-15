@@ -16,6 +16,7 @@ CONVERSIONS = {
 SRC_DIR = "/mnt/share/Movies"
 
 def run_cmd(cmd)
+  return if ENV["DRY"]&.downcase == "true"
   puts cmd
   `#{cmd}`
 end
@@ -24,7 +25,7 @@ end
 
 CONVERSIONS.each do |src_ext, dest_ext|
   to_convert = Dir.glob("#{SRC_DIR}/**/*.#{src_ext}")
-  puts "EXT: #{src_ext} => #{dest_ext}: WILL CONVERT: \n#{to_convert.join("\n")}" 
+  puts "\n\nEXT: #{src_ext} => #{dest_ext}: WILL CONVERT: \n\n\n#{to_convert.join("\n")}" 
 
   to_convert.each.with_index do |orig_path, idx|
     filename = File.basename(orig_path)

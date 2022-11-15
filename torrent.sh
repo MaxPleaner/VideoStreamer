@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#/bin/bash
 #dir=/media/max/media/Movies/ALL/$1
 
 echo "enter folder and name of folder e.g. Movies/cool_film"
