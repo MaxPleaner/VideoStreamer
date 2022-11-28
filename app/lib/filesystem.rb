@@ -63,6 +63,7 @@ class Filesystem
 
   class << self
     def sanitize(path)
+      return path if Rails.env.development?
       path = File.join(FILMS_DIR, path.gsub(FILMS_DIR, ""))
 
       unless File.exists?(path) && File.realpath(path).start_with?(FILMS_DIR)
