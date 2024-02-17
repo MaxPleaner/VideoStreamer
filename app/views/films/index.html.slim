@@ -25,18 +25,31 @@ p style="font-weight: bold; color: white" = notice
       - @all_tags.each do |tag|
         option name='tag' value=tag = tag
 
+  .index-filter
+    b.filter-title Search:
+    input id='search-query' type='text' placeholder='search'
+    button id='search' Search
+
   a.recommendation-link href=film_recommendation_path Recommend a film
   a.info-link href=info_path About this site
   a.info-link href='https://dissonant.info' Dissonant Info (Max Pleaner)
 
 
+- if File.exists?(Rails.root.join("message.txt"))
+  h1 style='color: red' = File.read(Rails.root.join("message.txt"))
+
 #jellyfin
-  h3.title Update - You can now use this site on Roku!
+  h3.title Prefer a more fancy interface? - go to https://jellyfin.dissonant.info
+  p
+    b Note: the Jellyfin version supports in-browser streaming of more video formats than this version
+
+  h3.title Jellyfin also works on Smart TVs!
   p
     b Instructions:
     span  ~ Download "Jellyfin app"
     span ~ Enter server name "https://jellyfin.dissonant.info"
     span ~ Use same username/password you use here.
+
 
 #films
   - if admin?
@@ -58,6 +71,10 @@ coffeescript:
     $("#sort-select")[0].value = sort if sort
     $("#tag-select")[0].value = tag if tag
     $("#director-select")[0].value = director if director
+
+    $("#search").on "click", (e) =>
+      path = "/films?search=" + $("#search-query").val()
+      window.location.href = path
 
     $(".index-filter select").on "change", (e) =>
       selected = $(".index-filter select option").filter () ->

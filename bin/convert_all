@@ -38,9 +38,15 @@ CONVERSIONS.each do |src_ext, dest_ext|
     dest_convert_path = "#{orig_path.gsub(".#{src_ext}", ".#{dest_ext}")}"
     # Note: this is REALLY processor intensive.
     # Uses `nice` and `cpulimit` to prevent performance degredation.
-    run_cmd <<-TXT
-      nice -n #{NICE_PRIORITY} ffmpeg -i "#{orig_path}" "#{dest_convert_path}"
-    TXT
+    if src_ext == "mkv"
+      run_cmd <<-TXT
+        nice -n #{NICE_PRIORITY} ffmpeg -i "#{orig_path}" -codec copy "#{dest_convert_path}"
+      TXT
+    else
+      run_cmd <<-TXT
+        nice -n #{NICE_PRIORITY} ffmpeg -i "#{orig_path}" "#{dest_convert_path}"
+      TXT
+    end
 
 #    run_cmd <<-TXT
 #      mv "#{dest_convert_path}" "#{File.dirname(orig_path)}"

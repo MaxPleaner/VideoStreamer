@@ -59,6 +59,11 @@ class FilmsController < ApplicationController
       @films = @films.where(director: params[:director])
     end
 
+    if params[:search]&.present?
+        search = params[:search].gsub(" ", "_").downcase
+	@films = @films.where("LOWER(name) LIKE ?", "%#{search}%")
+    end
+
     if params[:tag].present? && params[:tag] != "all"
       @opts[:tag] = params[:tag]
       @films = @films.joins(film_taggings: :tag).where(tag: { name: params[:tag] })

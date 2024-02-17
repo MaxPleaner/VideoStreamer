@@ -1,0 +1,2 @@
+killall transmission-cli
+screen -X kill
